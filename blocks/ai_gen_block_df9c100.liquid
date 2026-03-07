@@ -1,0 +1,933 @@
+{% doc %}
+  @prompt
+    Add an FAQ section with categorized expandable accordions for a hair regrowth DTC brand, Nuvé Stamp.
+    
+    Categories and Questions:
+    
+    Getting Started
+    
+    • What is Nuvé Stamp and how does it work?
+    • Who is Nuvé Stamp designed for?
+    Device Use & Safety
+    
+    • Does it hurt to use?
+    • How often should I use Nuvé Stamp for best results?
+    • Can I use serums or oils with the device?
+    • Is it safe for color-treated, curly, or sensitive scalps?
+    Results
+    
+    • How soon will I see new hair growth?
+    • How do I maximize my results?
+    • What if I don’t see results?
+    Orders & Shipping
+    
+    • How long does shipping take?
+    • Can I track my order?
+    • What is your return policy?
+    Support
+    
+    • How can I contact customer support?
+    • What do I do if there’s a problem with my device?
+    Design:
+    
+    • Accordion/expandable Q&A, grouped by clear category headings
+    • Mobile-friendly, modern, brand-aligned design with subtle lilac or off-white accents
+    • At the bottom: Add a closing message and Contact Us link (“Didn’t find your question? [Contact us] for personal help.”)
+    
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-faq-container-{{ ai_gen_id }} {
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: {{ block.settings.section_padding }}px 20px;
+    background-color: {{ block.settings.background_color }};
+    display: block;
+  }
+
+  .ai-faq-header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .ai-faq-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 12px 0;
+    font-weight: 700;
+  }
+
+  .ai-faq-subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subtitle_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0;
+    opacity: 0.8;
+  }
+
+  .ai-faq-category-{{ ai_gen_id }} {
+    margin-bottom: 32px;
+  }
+
+  .ai-faq-category-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.category_title_size }}px;
+    color: {{ block.settings.category_title_color }};
+    margin: 0 0 16px 0;
+    font-weight: 600;
+    padding-bottom: 8px;
+    border-bottom: 2px solid {{ block.settings.accent_color }};
+  }
+
+  .ai-faq-item-{{ ai_gen_id }} {
+    border: 1px solid {{ block.settings.border_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    background-color: {{ block.settings.item_background }};
+    transition: all 0.3s ease;
+  }
+
+  .ai-faq-item-{{ ai_gen_id }}:hover {
+    border-color: {{ block.settings.accent_color }};
+  }
+
+  .ai-faq-question-{{ ai_gen_id }} {
+    width: 100%;
+    padding: 18px 20px;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    font-size: {{ block.settings.question_size }}px;
+    color: {{ block.settings.question_color }};
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+
+  .ai-faq-question-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.accent_color }};
+  }
+
+  .ai-faq-icon-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+    color: {{ block.settings.accent_color }};
+  }
+
+  .ai-faq-item-{{ ai_gen_id }}.active .ai-faq-icon-{{ ai_gen_id }} {
+    transform: rotate(180deg);
+  }
+
+  .ai-faq-answer-{{ ai_gen_id }} {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+  }
+
+  .ai-faq-item-{{ ai_gen_id }}.active .ai-faq-answer-{{ ai_gen_id }} {
+    max-height: 500px;
+    padding: 0 20px 18px 20px;
+  }
+
+  .ai-faq-answer-content-{{ ai_gen_id }} {
+    font-size: {{ block.settings.answer_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.6;
+  }
+
+  .ai-faq-footer-{{ ai_gen_id }} {
+    margin-top: 48px;
+    padding: 32px;
+    background-color: {{ block.settings.footer_background }};
+    border-radius: {{ block.settings.border_radius }}px;
+    text-align: center;
+  }
+
+  .ai-faq-footer-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.answer_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 16px 0;
+  }
+
+  .ai-faq-contact-link-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 12px 32px;
+    background-color: {{ block.settings.button_background }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .ai-faq-contact-link-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_background }};
+    transform: translateY(-2px);
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-faq-container-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding | times: 0.6 }}px 16px;
+    }
+
+    .ai-faq-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.7 }}px;
+    }
+
+    .ai-faq-subtitle-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subtitle_size | times: 0.9 }}px;
+    }
+
+    .ai-faq-category-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.category_title_size | times: 0.85 }}px;
+    }
+
+    .ai-faq-question-{{ ai_gen_id }} {
+      font-size: {{ block.settings.question_size | times: 0.9 }}px;
+      padding: 14px 16px;
+    }
+
+    .ai-faq-answer-content-{{ ai_gen_id }} {
+      font-size: {{ block.settings.answer_size | times: 0.95 }}px;
+    }
+
+    .ai-faq-item-{{ ai_gen_id }}.active .ai-faq-answer-{{ ai_gen_id }} {
+      padding: 0 16px 14px 16px;
+    }
+
+    .ai-faq-footer-{{ ai_gen_id }} {
+      padding: 24px 16px;
+    }
+  }
+{% endstyle %}
+
+<faq-accordion-{{ ai_gen_id }} class="ai-faq-container-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-faq-header-{{ ai_gen_id }}">
+    {% if block.settings.main_title != blank %}
+      <h2 class="ai-faq-title-{{ ai_gen_id }}">{{ block.settings.main_title }}</h2>
+    {% endif %}
+    {% if block.settings.subtitle != blank %}
+      <p class="ai-faq-subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</p>
+    {% endif %}
+  </div>
+
+  {% if block.settings.show_getting_started %}
+    <div class="ai-faq-category-{{ ai_gen_id }}">
+      <h3 class="ai-faq-category-title-{{ ai_gen_id }}">{{ block.settings.category_1_title }}</h3>
+      
+      <div class="ai-faq-item-{{ ai_gen_id }}" data-faq-item>
+        <button class="ai-faq-question-{{ ai_gen_id }}" aria-expanded="false">
+          <span>{{ block.settings.q1_1 }}</span>
+          <svg class="ai-faq-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="ai-faq-answer-{{ ai_gen_id }}">
+          <div class="ai-faq-answer-content-{{ ai_gen_id }}">{{ block.settings.a1_1 }}</div>
+        </div>
+      </div>
+
+      <div class="ai-faq-item-{{ ai_gen_id }}" data-faq-item>
+        <button class="ai-faq-question-{{ ai_gen_id }}" aria-expanded="false">
+          <span>{{ block.settings.q1_2 }}</span>
+          <svg class="ai-faq-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="ai-faq-answer-{{ ai_gen_id }}">
+          <div class="ai-faq-answer-content-{{ ai_gen_id }}">{{ block.settings.a1_2 }}</div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if block.settings.show_device_use %}
+    <div class="ai-faq-category-{{ ai_gen_id }}">
+      <h3 class="ai-faq-category-title-{{ ai_gen_id }}">{{ block.settings.category_2_title }}</h3>
+      
+      <div class="ai-faq-item-{{ ai_gen_id }}" data-faq-item>
+        <button class="ai-faq-question-{{ ai_gen_id }}" aria-expanded="false">
+          <span>{{ block.settings.q2_1 }}</span>
+          <svg class="ai-faq-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="ai-faq-answer-{{ ai_gen_id }}">
+          <div class="ai-faq-answer-content-{{ ai_gen_id }}">{{ block.settings.a2_1 }}</div>
+        </div>
+      </div>
+
+      <div class="ai-faq-item-{{ ai_gen_id }}" data-faq-item>
+        <button class="ai-faq-question-{{ ai_gen_id }}" aria-expanded="false">
+          <span>{{ block.settings.q2_2 }}</span>
+          <svg class="ai-faq-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="ai-faq-answer-{{ ai_gen_id }}">
+          <div class="ai-faq-answer-content-{{ ai_gen_id }}">{{ block.settings.a2_2 }}</div>
+        </div>
+      </div>
+
+      <div class="ai-faq-item-{{ ai_gen_id }}" data-faq-item>
+        <button class="ai-faq-question-{{ ai_gen_id }}" aria-expanded="false">
+          <span>{{ block.settings.q2_3 }}</span>
+          <svg class="ai-faq-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="ai-faq-answer-{{ ai_gen_id }}">
+          <div class="ai-faq-answer-content-{{ ai_gen_id }}">{{ block.settings.a2_3 }}</div>
+        </div>
+      </div>
+
+      <div class="ai-faq-item-{{ ai_gen_id }}" data-faq-item>
+        <button class="ai-faq-question-{{ ai_gen_id }}" aria-expanded="false">
+          <span>{{ block.settings.q2_4 }}</span>
+          <svg class="ai-faq-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="ai-faq-answer-{{ ai_gen_id }}">
+          <div class="ai-faq-answer-content-{{ ai_gen_id }}">{{ block.settings.a2_4 }}</div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if block.settings.show_results %}
+    <div class="ai-faq-category-{{ ai_gen_id }}">
+      <h3 class="ai-faq-category-title-{{ ai_gen_id }}">{{ block.settings.category_3_title }}</h3>
+      
+      <div class="ai-faq-item-{{ ai_gen_id }}" data-faq-item>
+        <button class="ai-faq-question-{{ ai_gen_id }}" aria-expanded="false">
+          <span>{{ block.settings.q3_1 }}</span>
+          <svg class="ai-faq-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="ai-faq-answer-{{ ai_gen_id }}">
+          <div class="ai-faq-answer-content-{{ ai_gen_id }}">{{ block.settings.a3_1 }}</div>
+        </div>
+      </div>
+
+      <div class="ai-faq-item-{{ ai_gen_id }}" data-faq-item>
+        <button class="ai-faq-question-{{ ai_gen_id }}" aria-expanded="false">
+          <span>{{ block.settings.q3_2 }}</span>
+          <svg class="ai-faq-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="ai-faq-answer-{{ ai_gen_id }}">
+          <div class="ai-faq-answer-content-{{ ai_gen_id }}">{{ block.settings.a3_2 }}</div>
+        </div>
+      </div>
+
+      <div class="ai-faq-item-{{ ai_gen_id }}" data-faq-item>
+        <button class="ai-faq-question-{{ ai_gen_id }}" aria-expanded="false">
+          <span>{{ block.settings.q3_3 }}</span>
+          <svg class="ai-faq-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="ai-faq-answer-{{ ai_gen_id }}">
+          <div class="ai-faq-answer-content-{{ ai_gen_id }}">{{ block.settings.a3_3 }}</div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if block.settings.show_orders %}
+    <div class="ai-faq-category-{{ ai_gen_id }}">
+      <h3 class="ai-faq-category-title-{{ ai_gen_id }}">{{ block.settings.category_4_title }}</h3>
+      
+      <div class="ai-faq-item-{{ ai_gen_id }}" data-faq-item>
+        <button class="ai-faq-question-{{ ai_gen_id }}" aria-expanded="false">
+          <span>{{ block.settings.q4_1 }}</span>
+          <svg class="ai-faq-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="ai-faq-answer-{{ ai_gen_id }}">
+          <div class="ai-faq-answer-content-{{ ai_gen_id }}">{{ block.settings.a4_1 }}</div>
+        </div>
+      </div>
+
+      <div class="ai-faq-item-{{ ai_gen_id }}" data-faq-item>
+        <button class="ai-faq-question-{{ ai_gen_id }}" aria-expanded="false">
+          <span>{{ block.settings.q4_2 }}</span>
+          <svg class="ai-faq-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="ai-faq-answer-{{ ai_gen_id }}">
+          <div class="ai-faq-answer-content-{{ ai_gen_id }}">{{ block.settings.a4_2 }}</div>
+        </div>
+      </div>
+
+      <div class="ai-faq-item-{{ ai_gen_id }}" data-faq-item>
+        <button class="ai-faq-question-{{ ai_gen_id }}" aria-expanded="false">
+          <span>{{ block.settings.q4_3 }}</span>
+          <svg class="ai-faq-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="ai-faq-answer-{{ ai_gen_id }}">
+          <div class="ai-faq-answer-content-{{ ai_gen_id }}">{{ block.settings.a4_3 }}</div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if block.settings.show_support %}
+    <div class="ai-faq-category-{{ ai_gen_id }}">
+      <h3 class="ai-faq-category-title-{{ ai_gen_id }}">{{ block.settings.category_5_title }}</h3>
+      
+      <div class="ai-faq-item-{{ ai_gen_id }}" data-faq-item>
+        <button class="ai-faq-question-{{ ai_gen_id }}" aria-expanded="false">
+          <span>{{ block.settings.q5_1 }}</span>
+          <svg class="ai-faq-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="ai-faq-answer-{{ ai_gen_id }}">
+          <div class="ai-faq-answer-content-{{ ai_gen_id }}">{{ block.settings.a5_1 }}</div>
+        </div>
+      </div>
+
+      <div class="ai-faq-item-{{ ai_gen_id }}" data-faq-item>
+        <button class="ai-faq-question-{{ ai_gen_id }}" aria-expanded="false">
+          <span>{{ block.settings.q5_2 }}</span>
+          <svg class="ai-faq-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="ai-faq-answer-{{ ai_gen_id }}">
+          <div class="ai-faq-answer-content-{{ ai_gen_id }}">{{ block.settings.a5_2 }}</div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="ai-faq-footer-{{ ai_gen_id }}">
+    <p class="ai-faq-footer-text-{{ ai_gen_id }}">{{ block.settings.footer_text }}</p>
+    <a href="{{ block.settings.contact_link }}" class="ai-faq-contact-link-{{ ai_gen_id }}">
+      {{ block.settings.contact_button_text }}
+    </a>
+  </div>
+</faq-accordion-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class FaqAccordion{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.items = this.querySelectorAll('[data-faq-item]');
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.items.forEach((item) => {
+          const button = item.querySelector('.ai-faq-question-{{ ai_gen_id }}');
+          const answer = item.querySelector('.ai-faq-answer-{{ ai_gen_id }}');
+
+          button.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            
+            if (isActive) {
+              item.classList.remove('active');
+              button.setAttribute('aria-expanded', 'false');
+            } else {
+              item.classList.add('active');
+              button.setAttribute('aria-expanded', 'true');
+            }
+          });
+        });
+      }
+    }
+
+    customElements.define('faq-accordion-{{ ai_gen_id }}', FaqAccordion{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "FAQ accordion",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Main heading"
+    },
+    {
+      "type": "text",
+      "id": "main_title",
+      "label": "Title",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Everything you need to know about Nuvé Stamp"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Getting started"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_getting_started",
+      "label": "Show category",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "category_1_title",
+      "label": "Category title",
+      "default": "Getting Started"
+    },
+    {
+      "type": "text",
+      "id": "q1_1",
+      "label": "Question 1",
+      "default": "What is Nuvé Stamp and how does it work?"
+    },
+    {
+      "type": "textarea",
+      "id": "a1_1",
+      "label": "Answer 1",
+      "default": "Nuvé Stamp is a microneedling device designed to stimulate hair follicles and promote natural hair regrowth. It uses tiny needles to create micro-channels in the scalp, boosting circulation and enhancing absorption of hair growth serums."
+    },
+    {
+      "type": "text",
+      "id": "q1_2",
+      "label": "Question 2",
+      "default": "Who is Nuvé Stamp designed for?"
+    },
+    {
+      "type": "textarea",
+      "id": "a1_2",
+      "label": "Answer 2",
+      "default": "Nuvé Stamp is perfect for anyone experiencing thinning hair, hair loss, or looking to improve overall scalp health. It's suitable for all hair types and genders."
+    },
+    {
+      "type": "header",
+      "content": "Device use and safety"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_device_use",
+      "label": "Show category",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "category_2_title",
+      "label": "Category title",
+      "default": "Device Use & Safety"
+    },
+    {
+      "type": "text",
+      "id": "q2_1",
+      "label": "Question 1",
+      "default": "Does it hurt to use?"
+    },
+    {
+      "type": "textarea",
+      "id": "a2_1",
+      "label": "Answer 1",
+      "default": "Most users experience minimal discomfort. You may feel a slight tingling or prickling sensation, but it should not be painful. Start with gentle pressure and adjust as needed."
+    },
+    {
+      "type": "text",
+      "id": "q2_2",
+      "label": "Question 2",
+      "default": "How often should I use Nuvé Stamp for best results?"
+    },
+    {
+      "type": "textarea",
+      "id": "a2_2",
+      "label": "Answer 2",
+      "default": "For optimal results, use Nuvé Stamp 2-3 times per week. Consistency is key! Allow at least 48 hours between sessions to let your scalp recover."
+    },
+    {
+      "type": "text",
+      "id": "q2_3",
+      "label": "Question 3",
+      "default": "Can I use serums or oils with the device?"
+    },
+    {
+      "type": "textarea",
+      "id": "a2_3",
+      "label": "Answer 3",
+      "default": "Yes! In fact, we recommend applying your favorite hair growth serum immediately after using Nuvé Stamp. The micro-channels enhance absorption by up to 300%."
+    },
+    {
+      "type": "text",
+      "id": "q2_4",
+      "label": "Question 4",
+      "default": "Is it safe for color-treated, curly, or sensitive scalps?"
+    },
+    {
+      "type": "textarea",
+      "id": "a2_4",
+      "label": "Answer 4",
+      "default": "Absolutely! Nuvé Stamp is safe for all hair types and scalp conditions. If you have a sensitive scalp, start with lighter pressure and gradually increase as your scalp adjusts."
+    },
+    {
+      "type": "header",
+      "content": "Results"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_results",
+      "label": "Show category",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "category_3_title",
+      "label": "Category title",
+      "default": "Results"
+    },
+    {
+      "type": "text",
+      "id": "q3_1",
+      "label": "Question 1",
+      "default": "How soon will I see new hair growth?"
+    },
+    {
+      "type": "textarea",
+      "id": "a3_1",
+      "label": "Answer 1",
+      "default": "Most users notice improved scalp health within 2-4 weeks. Visible hair growth typically appears after 8-12 weeks of consistent use. Results vary based on individual hair growth cycles."
+    },
+    {
+      "type": "text",
+      "id": "q3_2",
+      "label": "Question 2",
+      "default": "How do I maximize my results?"
+    },
+    {
+      "type": "textarea",
+      "id": "a3_2",
+      "label": "Answer 2",
+      "default": "Use Nuvé Stamp consistently 2-3 times per week, pair it with quality hair growth serums, maintain a healthy diet, stay hydrated, and manage stress levels for best results."
+    },
+    {
+      "type": "text",
+      "id": "q3_3",
+      "label": "Question 3",
+      "default": "What if I don't see results?"
+    },
+    {
+      "type": "textarea",
+      "id": "a3_3",
+      "label": "Answer 3",
+      "default": "Hair growth takes time and varies by individual. If you don't see results after 12 weeks of consistent use, please contact our support team. We're here to help optimize your routine."
+    },
+    {
+      "type": "header",
+      "content": "Orders and shipping"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_orders",
+      "label": "Show category",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "category_4_title",
+      "label": "Category title",
+      "default": "Orders & Shipping"
+    },
+    {
+      "type": "text",
+      "id": "q4_1",
+      "label": "Question 1",
+      "default": "How long does shipping take?"
+    },
+    {
+      "type": "textarea",
+      "id": "a4_1",
+      "label": "Answer 1",
+      "default": "Standard shipping takes 5-7 business days. Express shipping (2-3 business days) is available at checkout. International orders may take 10-14 business days."
+    },
+    {
+      "type": "text",
+      "id": "q4_2",
+      "label": "Question 2",
+      "default": "Can I track my order?"
+    },
+    {
+      "type": "textarea",
+      "id": "a4_2",
+      "label": "Answer 2",
+      "default": "Yes! You'll receive a tracking number via email once your order ships. You can track your package in real-time through our website or the carrier's site."
+    },
+    {
+      "type": "text",
+      "id": "q4_3",
+      "label": "Question 3",
+      "default": "What is your return policy?"
+    },
+    {
+      "type": "textarea",
+      "id": "a4_3",
+      "label": "Answer 3",
+      "default": "We offer a 60-day money-back guarantee. If you're not satisfied with your Nuvé Stamp, contact us for a full refund. The device must be in good condition with original packaging."
+    },
+    {
+      "type": "header",
+      "content": "Support"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_support",
+      "label": "Show category",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "category_5_title",
+      "label": "Category title",
+      "default": "Support"
+    },
+    {
+      "type": "text",
+      "id": "q5_1",
+      "label": "Question 1",
+      "default": "How can I contact customer support?"
+    },
+    {
+      "type": "textarea",
+      "id": "a5_1",
+      "label": "Answer 1",
+      "default": "You can reach us via email at support@nuvestamp.com or through our contact form. We typically respond within 24 hours on business days."
+    },
+    {
+      "type": "text",
+      "id": "q5_2",
+      "label": "Question 2",
+      "default": "What do I do if there's a problem with my device?"
+    },
+    {
+      "type": "textarea",
+      "id": "a5_2",
+      "label": "Answer 2",
+      "default": "Contact our support team immediately. We'll troubleshoot the issue and send a replacement if needed. All devices come with a 1-year warranty against manufacturing defects."
+    },
+    {
+      "type": "header",
+      "content": "Footer"
+    },
+    {
+      "type": "text",
+      "id": "footer_text",
+      "label": "Footer text",
+      "default": "Didn't find your question?"
+    },
+    {
+      "type": "text",
+      "id": "contact_button_text",
+      "label": "Button text",
+      "default": "Contact us for personal help"
+    },
+    {
+      "type": "url",
+      "id": "contact_link",
+      "label": "Contact link"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f3f3f4"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "color",
+      "id": "category_title_color",
+      "label": "Category title",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "color",
+      "id": "question_color",
+      "label": "Question",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#d6c8f5"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#e6e6e6"
+    },
+    {
+      "type": "color",
+      "id": "item_background",
+      "label": "Item background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "footer_background",
+      "label": "Footer background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Button hover",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "label": "Subtitle size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "category_title_size",
+      "label": "Category title size",
+      "min": 16,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "question_size",
+      "label": "Question size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "answer_size",
+      "label": "Answer size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ accordion"
+    }
+  ]
+}
+{% endschema %}

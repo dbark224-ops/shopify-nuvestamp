@@ -1,0 +1,562 @@
+{% doc %}
+  @prompt
+    Create an engaging, education-focused section for a premium hair regrowth brand, highlighting how the Nuve Stamp’s unique technology helps stimulate follicles and regrow hair.
+    
+    Headline:
+    “The Science Behind Nuve Stamp”
+    
+    Features to showcase, each with its own step/icon/visual:
+    
+    1. Microcurrent Technology:
+    “Delivers gentle electrical pulses to energize dormant hair follicles and improve scalp circulation—unlocking optimal regrowth potential.”
+    2. Vibration Therapy:
+    “Soothes the scalp, reduces discomfort, and improves absorption of growth serums for maximum effect—with a relaxing sensation in every use.”
+    3. Red Light Therapy:
+    “Clinically backed wavelengths help boost cell activity and follicle performance, accelerating healthy, new hair growth.”
+    • Design: Arrange each feature in a horizontal (desktop) or stack (mobile) row with icon/illustration and short description.
+    • Colors: Use brand palette (primary near-black, soft lilac accent, off-white background).
+    • End with:
+    “Three advanced therapies, one powerful device—Safer, easier, and more effective than outdated rollers or messy topicals.”
+    • CTA button: “Shop Nuve Stamp Now”
+    If generating images, use scientifically inspired flat icons (microcurrent = energy bolt or wave, vibration = concentric curves, red light = glowing beam/waves), device may be visualized with glowing/active elements on scalp, no faces necessary.
+    
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-science-section-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: {{ block.settings.section_padding }}px 20px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-science-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .ai-science-header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: {{ block.settings.header_spacing }}px;
+  }
+
+  .ai-science-heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 16px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .ai-science-features-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.feature_spacing }}px;
+    margin-bottom: {{ block.settings.footer_spacing }}px;
+  }
+
+  .ai-science-feature-{{ ai_gen_id }} {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding: {{ block.settings.feature_padding }}px;
+    background-color: {{ block.settings.feature_background }};
+    border-radius: {{ block.settings.feature_border_radius }}px;
+  }
+
+  .ai-science-icon-wrapper-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: {{ block.settings.icon_background }};
+    border-radius: 50%;
+  }
+
+  .ai-science-icon-{{ ai_gen_id }} {
+    width: calc({{ block.settings.icon_size }}px * 0.5);
+    height: calc({{ block.settings.icon_size }}px * 0.5);
+    stroke: {{ block.settings.icon_color }};
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .ai-science-feature-content-{{ ai_gen_id }} {
+    flex: 1;
+  }
+
+  .ai-science-feature-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.feature_title_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 8px;
+    font-weight: 600;
+  }
+
+  .ai-science-feature-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.feature_text_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .ai-science-footer-{{ ai_gen_id }} {
+    text-align: center;
+  }
+
+  .ai-science-footer-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.footer_text_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 24px;
+    line-height: 1.6;
+    font-weight: 500;
+  }
+
+  .ai-science-cta-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 16px 40px;
+    background-color: {{ block.settings.cta_background }};
+    color: {{ block.settings.cta_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.cta_border_radius }}px;
+    font-size: {{ block.settings.cta_text_size }}px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .ai-science-cta-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.cta_hover_background }};
+    color: {{ block.settings.cta_hover_text_color }};
+    transform: translateY(-2px);
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-science-features-{{ ai_gen_id }} {
+      {% if block.settings.desktop_layout == 'horizontal' %}
+        flex-direction: row;
+      {% endif %}
+    }
+
+    .ai-science-feature-{{ ai_gen_id }} {
+      {% if block.settings.desktop_layout == 'horizontal' %}
+        flex-direction: column;
+        text-align: center;
+        flex: 1;
+      {% endif %}
+    }
+
+    .ai-science-icon-wrapper-{{ ai_gen_id }} {
+      {% if block.settings.desktop_layout == 'horizontal' %}
+        margin: 0 auto 16px;
+      {% endif %}
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-science-heading-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.heading_size }}px * 0.7);
+    }
+
+    .ai-science-feature-{{ ai_gen_id }} {
+      flex-direction: column;
+      text-align: center;
+      gap: 16px;
+    }
+
+    .ai-science-icon-wrapper-{{ ai_gen_id }} {
+      margin: 0 auto;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-science-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-science-container-{{ ai_gen_id }}">
+    <div class="ai-science-header-{{ ai_gen_id }}">
+      <h2 class="ai-science-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+    </div>
+
+    <div class="ai-science-features-{{ ai_gen_id }}">
+      <div class="ai-science-feature-{{ ai_gen_id }}">
+        <div class="ai-science-icon-wrapper-{{ ai_gen_id }}">
+          <svg class="ai-science-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/>
+          </svg>
+        </div>
+        <div class="ai-science-feature-content-{{ ai_gen_id }}">
+          <h3 class="ai-science-feature-title-{{ ai_gen_id }}">{{ block.settings.feature_1_title }}</h3>
+          <p class="ai-science-feature-description-{{ ai_gen_id }}">{{ block.settings.feature_1_description }}</p>
+        </div>
+      </div>
+
+      <div class="ai-science-feature-{{ ai_gen_id }}">
+        <div class="ai-science-icon-wrapper-{{ ai_gen_id }}">
+          <svg class="ai-science-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="3"/>
+            <circle cx="12" cy="12" r="6"/>
+            <circle cx="12" cy="12" r="9"/>
+          </svg>
+        </div>
+        <div class="ai-science-feature-content-{{ ai_gen_id }}">
+          <h3 class="ai-science-feature-title-{{ ai_gen_id }}">{{ block.settings.feature_2_title }}</h3>
+          <p class="ai-science-feature-description-{{ ai_gen_id }}">{{ block.settings.feature_2_description }}</p>
+        </div>
+      </div>
+
+      <div class="ai-science-feature-{{ ai_gen_id }}">
+        <div class="ai-science-icon-wrapper-{{ ai_gen_id }}">
+          <svg class="ai-science-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </div>
+        <div class="ai-science-feature-content-{{ ai_gen_id }}">
+          <h3 class="ai-science-feature-title-{{ ai_gen_id }}">{{ block.settings.feature_3_title }}</h3>
+          <p class="ai-science-feature-description-{{ ai_gen_id }}">{{ block.settings.feature_3_description }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ai-science-footer-{{ ai_gen_id }}">
+      <p class="ai-science-footer-text-{{ ai_gen_id }}">{{ block.settings.footer_text }}</p>
+      {% if block.settings.cta_link != blank %}
+        <a href="{{ block.settings.cta_link }}" class="ai-science-cta-{{ ai_gen_id }}">
+          {{ block.settings.cta_text }}
+        </a>
+      {% else %}
+        <span class="ai-science-cta-{{ ai_gen_id }}" style="cursor: default;">
+          {{ block.settings.cta_text }}
+        </span>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Science behind Nuve Stamp",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "select",
+      "id": "desktop_layout",
+      "label": "Desktop layout",
+      "options": [
+        {
+          "value": "horizontal",
+          "label": "Horizontal"
+        },
+        {
+          "value": "vertical",
+          "label": "Vertical"
+        }
+      ],
+      "default": "horizontal"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section padding",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Science Behind Nuve Stamp"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "label": "Spacing below heading",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Feature 1 - Microcurrent"
+    },
+    {
+      "type": "text",
+      "id": "feature_1_title",
+      "label": "Title",
+      "default": "Microcurrent Technology"
+    },
+    {
+      "type": "textarea",
+      "id": "feature_1_description",
+      "label": "Description",
+      "default": "Delivers gentle electrical pulses to energize dormant hair follicles and improve scalp circulation—unlocking optimal regrowth potential."
+    },
+    {
+      "type": "header",
+      "content": "Feature 2 - Vibration"
+    },
+    {
+      "type": "text",
+      "id": "feature_2_title",
+      "label": "Title",
+      "default": "Vibration Therapy"
+    },
+    {
+      "type": "textarea",
+      "id": "feature_2_description",
+      "label": "Description",
+      "default": "Soothes the scalp, reduces discomfort, and improves absorption of growth serums for maximum effect—with a relaxing sensation in every use."
+    },
+    {
+      "type": "header",
+      "content": "Feature 3 - Red light"
+    },
+    {
+      "type": "text",
+      "id": "feature_3_title",
+      "label": "Title",
+      "default": "Red Light Therapy"
+    },
+    {
+      "type": "textarea",
+      "id": "feature_3_description",
+      "label": "Description",
+      "default": "Clinically backed wavelengths help boost cell activity and follicle performance, accelerating healthy, new hair growth."
+    },
+    {
+      "type": "header",
+      "content": "Features style"
+    },
+    {
+      "type": "range",
+      "id": "feature_spacing",
+      "label": "Space between features",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "feature_padding",
+      "label": "Feature padding",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "feature_border_radius",
+      "label": "Feature border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "feature_title_size",
+      "label": "Feature title size",
+      "min": 14,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "feature_text_size",
+      "label": "Feature text size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Footer"
+    },
+    {
+      "type": "textarea",
+      "id": "footer_text",
+      "label": "Footer text",
+      "default": "Three advanced therapies, one powerful device—Safer, easier, and more effective than outdated rollers or messy topicals."
+    },
+    {
+      "type": "range",
+      "id": "footer_spacing",
+      "label": "Spacing above footer",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "footer_text_size",
+      "label": "Footer text size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 17
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button text",
+      "default": "Shop Nuve Stamp Now"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "cta_text_size",
+      "label": "Button text size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "cta_border_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f3f3f4"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "color",
+      "id": "feature_background",
+      "label": "Feature background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "icon_background",
+      "label": "Icon background",
+      "default": "#d6c8f5"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "color",
+      "id": "cta_background",
+      "label": "Button background",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_background",
+      "label": "Button hover background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_text_color",
+      "label": "Button hover text",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Science behind Nuve Stamp"
+    }
+  ]
+}
+{% endschema %}

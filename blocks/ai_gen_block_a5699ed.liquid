@@ -1,0 +1,1033 @@
+{% doc %}
+  @prompt
+    Build a Results & Proof page for a hair regrowth DTC brand, Nuvé Stamp.
+    
+    Headline: “Real People. Real Hair Regrowth.”
+    
+    Before & After Gallery:
+    
+    • Display a slider or multi-column grid of before-and-after scalp/hair photos.
+    • Each image labeled clearly (“Before,” “After”).
+    • Include close-ups showing fuller hairlines, reduced thinning, and natural regrowth.
+    Testimonial Quotes:
+    
+    • Overlay or place below gallery 3–4 testimonials from real users with names and (optional) small facial or scalp icons.
+    • Example quotes:
+    “I saw new growth at my temples in 5 weeks!”
+    “My hair feels fuller and my confidence is back.”
+    “Nuvé Stamp is now my Sunday ritual. I even got rid of my wig.”
+    By the Numbers (optional):
+    
+    • Add a mini-stats strip:  • “91% of users noticed new hair”
+      • “4.9/5 average rating”
+      • “5,000+ customers worldwide”
+    
+    Trust Badges (optional):
+    
+    • FDA compliant, dermatologist recommended, 30-day guarantee, as subtle icons
+    Design:
+    
+    • Clean, credible, modern. Brand-aligned background and accents.
+    • Ensure mobile/grid visual layout is easy to scroll and tap.
+    CTA at bottom:
+    
+    • “See how Nuvé Stamp works” or “Shop now and start your own results story”
+    
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-results-proof-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: {{ block.settings.section_padding }}px 20px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-results-proof-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .ai-results-proof-header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .ai-results-proof-headline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.headline_size }}px;
+    color: {{ block.settings.headline_color }};
+    margin: 0 0 20px;
+    font-weight: 700;
+  }
+
+  .ai-results-proof-subheadline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subheadline_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  .ai-results-proof-gallery-{{ ai_gen_id }} {
+    margin-bottom: 80px;
+  }
+
+  .ai-results-proof-gallery-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+  }
+
+  .ai-results-proof-gallery-item-{{ ai_gen_id }} {
+    position: relative;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    overflow: hidden;
+    background-color: {{ block.settings.card_background }};
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .ai-results-proof-comparison-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+  }
+
+  .ai-results-proof-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ai-results-proof-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-results-proof-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-results-proof-image-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-results-proof-label-{{ ai_gen_id }} {
+    position: absolute;
+    top: 12px;
+    padding: 6px 14px;
+    background-color: {{ block.settings.label_background }};
+    color: {{ block.settings.label_text_color }};
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 20px;
+  }
+
+  .ai-results-proof-label-before-{{ ai_gen_id }} {
+    left: 12px;
+  }
+
+  .ai-results-proof-label-after-{{ ai_gen_id }} {
+    right: 12px;
+    background-color: {{ block.settings.label_after_background }};
+  }
+
+  .ai-results-proof-caption-{{ ai_gen_id }} {
+    padding: 16px;
+    text-align: center;
+    font-size: 14px;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-results-proof-testimonials-{{ ai_gen_id }} {
+    margin-bottom: 60px;
+  }
+
+  .ai-results-proof-testimonials-title-{{ ai_gen_id }} {
+    text-align: center;
+    font-size: {{ block.settings.section_title_size }}px;
+    color: {{ block.settings.headline_color }};
+    margin: 0 0 40px;
+    font-weight: 700;
+  }
+
+  .ai-results-proof-testimonials-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .ai-results-proof-testimonial-{{ ai_gen_id }} {
+    background-color: {{ block.settings.testimonial_background }};
+    padding: 30px;
+    border-radius: {{ block.settings.testimonial_border_radius }}px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .ai-results-proof-quote-{{ ai_gen_id }} {
+    font-size: 16px;
+    line-height: 1.6;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 16px;
+    font-style: italic;
+  }
+
+  .ai-results-proof-quote-{{ ai_gen_id }}::before {
+    content: '"';
+    font-size: 24px;
+    color: {{ block.settings.accent_color }};
+  }
+
+  .ai-results-proof-quote-{{ ai_gen_id }}::after {
+    content: '"';
+    font-size: 24px;
+    color: {{ block.settings.accent_color }};
+  }
+
+  .ai-results-proof-author-{{ ai_gen_id }} {
+    font-size: 14px;
+    font-weight: 600;
+    color: {{ block.settings.headline_color }};
+  }
+
+  .ai-results-proof-stats-{{ ai_gen_id }} {
+    background-color: {{ block.settings.stats_background }};
+    padding: 40px 20px;
+    border-radius: {{ block.settings.stats_border_radius }}px;
+    margin-bottom: 60px;
+  }
+
+  .ai-results-proof-stats-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .ai-results-proof-stat-{{ ai_gen_id }} {
+    text-align: center;
+  }
+
+  .ai-results-proof-stat-number-{{ ai_gen_id }} {
+    font-size: {{ block.settings.stat_number_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.accent_color }};
+    margin: 0 0 8px;
+    line-height: 1;
+  }
+
+  .ai-results-proof-stat-label-{{ ai_gen_id }} {
+    font-size: 14px;
+    color: {{ block.settings.text_color }};
+    margin: 0;
+  }
+
+  .ai-results-proof-trust-{{ ai_gen_id }} {
+    margin-bottom: 60px;
+  }
+
+  .ai-results-proof-trust-grid-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .ai-results-proof-badge-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .ai-results-proof-badge-icon-{{ ai_gen_id }} {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: {{ block.settings.badge_background }};
+    border-radius: 50%;
+    color: {{ block.settings.accent_color }};
+  }
+
+  .ai-results-proof-badge-icon-{{ ai_gen_id }} svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .ai-results-proof-badge-text-{{ ai_gen_id }} {
+    font-size: 12px;
+    color: {{ block.settings.text_color }};
+    font-weight: 600;
+  }
+
+  .ai-results-proof-cta-{{ ai_gen_id }} {
+    text-align: center;
+  }
+
+  .ai-results-proof-cta-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 16px 40px;
+    background-color: {{ block.settings.cta_background }};
+    color: {{ block.settings.cta_text_color }};
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: {{ block.settings.cta_border_radius }}px;
+    transition: all 0.3s ease;
+  }
+
+  .ai-results-proof-cta-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.cta_hover_background }};
+    color: {{ block.settings.cta_hover_text_color }};
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-results-proof-{{ ai_gen_id }} {
+      width: 100%;
+      padding: {{ block.settings.section_padding | times: 0.6 }}px 16px;
+    }
+
+    .ai-results-proof-headline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.headline_size | times: 0.6 }}px;
+    }
+
+    .ai-results-proof-subheadline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subheadline_size | times: 0.9 }}px;
+    }
+
+    .ai-results-proof-section-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.section_title_size | times: 0.7 }}px;
+    }
+
+    .ai-results-proof-gallery-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .ai-results-proof-testimonials-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+    }
+
+    .ai-results-proof-stats-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .ai-results-proof-stat-number-{{ ai_gen_id }} {
+      font-size: {{ block.settings.stat_number_size | times: 0.7 }}px;
+    }
+
+    .ai-results-proof-trust-grid-{{ ai_gen_id }} {
+      gap: 24px;
+    }
+  }
+{% endstyle %}
+
+<results-proof-{{ ai_gen_id }} class="ai-results-proof-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-results-proof-container-{{ ai_gen_id }}">
+    <div class="ai-results-proof-header-{{ ai_gen_id }}">
+      {% if block.settings.headline != blank %}
+        <h1 class="ai-results-proof-headline-{{ ai_gen_id }}">{{ block.settings.headline }}</h1>
+      {% endif %}
+      {% if block.settings.subheadline != blank %}
+        <p class="ai-results-proof-subheadline-{{ ai_gen_id }}">{{ block.settings.subheadline }}</p>
+      {% endif %}
+    </div>
+
+    {% if block.settings.show_gallery %}
+      <div class="ai-results-proof-gallery-{{ ai_gen_id }}">
+        <div class="ai-results-proof-gallery-grid-{{ ai_gen_id }}">
+          {% for i in (1..6) %}
+            {% liquid
+              assign before_key = 'before_image_' | append: i
+              assign after_key = 'after_image_' | append: i
+              assign caption_key = 'caption_' | append: i
+              assign before_image = block.settings[before_key]
+              assign after_image = block.settings[after_key]
+              assign caption = block.settings[caption_key]
+            %}
+
+            {% if before_image != blank or after_image != blank %}
+              <div class="ai-results-proof-gallery-item-{{ ai_gen_id }}">
+                <div class="ai-results-proof-comparison-{{ ai_gen_id }}">
+                  <div class="ai-results-proof-image-wrapper-{{ ai_gen_id }}">
+                    {% if before_image != blank %}
+                      <img
+                        src="{{ before_image | image_url: width: 600 }}"
+                        alt="Before {{ i }}"
+                        class="ai-results-proof-image-{{ ai_gen_id }}"
+                        loading="lazy"
+                        width="600"
+                        height="600"
+                      >
+                      <div class="ai-results-proof-label-{{ ai_gen_id }} ai-results-proof-label-before-{{ ai_gen_id }}">
+                        Before
+                      </div>
+                    {% else %}
+                      <div class="ai-results-proof-image-placeholder-{{ ai_gen_id }}">
+                        {{ 'image' | placeholder_svg_tag }}
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+                {% if caption != blank %}
+                  <div class="ai-results-proof-caption-{{ ai_gen_id }}">{{ caption }}</div>
+                {% endif %}
+              </div>
+
+              {% if after_image != blank %}
+                <div class="ai-results-proof-gallery-item-{{ ai_gen_id }}">
+                  <div class="ai-results-proof-comparison-{{ ai_gen_id }}">
+                    <div class="ai-results-proof-image-wrapper-{{ ai_gen_id }}">
+                      <img
+                        src="{{ after_image | image_url: width: 600 }}"
+                        alt="After {{ i }}"
+                        class="ai-results-proof-image-{{ ai_gen_id }}"
+                        loading="lazy"
+                        width="600"
+                        height="600"
+                      >
+                      <div class="ai-results-proof-label-{{ ai_gen_id }} ai-results-proof-label-after-{{ ai_gen_id }}">
+                        After
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if block.settings.show_testimonials %}
+      <div class="ai-results-proof-testimonials-{{ ai_gen_id }}">
+        {% if block.settings.testimonials_title != blank %}
+          <h2 class="ai-results-proof-testimonials-title-{{ ai_gen_id }}">{{ block.settings.testimonials_title }}</h2>
+        {% endif %}
+        <div class="ai-results-proof-testimonials-grid-{{ ai_gen_id }}">
+          {% for i in (1..4) %}
+            {% liquid
+              assign quote_key = 'testimonial_quote_' | append: i
+              assign author_key = 'testimonial_author_' | append: i
+              assign quote = block.settings[quote_key]
+              assign author = block.settings[author_key]
+            %}
+
+            {% if quote != blank %}
+              <div class="ai-results-proof-testimonial-{{ ai_gen_id }}">
+                <p class="ai-results-proof-quote-{{ ai_gen_id }}">{{ quote }}</p>
+                {% if author != blank %}
+                  <p class="ai-results-proof-author-{{ ai_gen_id }}">— {{ author }}</p>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if block.settings.show_stats %}
+      <div class="ai-results-proof-stats-{{ ai_gen_id }}">
+        <div class="ai-results-proof-stats-grid-{{ ai_gen_id }}">
+          {% for i in (1..3) %}
+            {% liquid
+              assign number_key = 'stat_number_' | append: i
+              assign label_key = 'stat_label_' | append: i
+              assign number = block.settings[number_key]
+              assign label = block.settings[label_key]
+            %}
+
+            {% if number != blank %}
+              <div class="ai-results-proof-stat-{{ ai_gen_id }}">
+                <div class="ai-results-proof-stat-number-{{ ai_gen_id }}">{{ number }}</div>
+                {% if label != blank %}
+                  <p class="ai-results-proof-stat-label-{{ ai_gen_id }}">{{ label }}</p>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if block.settings.show_trust_badges %}
+      <div class="ai-results-proof-trust-{{ ai_gen_id }}">
+        <div class="ai-results-proof-trust-grid-{{ ai_gen_id }}">
+          {% if block.settings.badge_1_text != blank %}
+            <div class="ai-results-proof-badge-{{ ai_gen_id }}">
+              <div class="ai-results-proof-badge-icon-{{ ai_gen_id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+              </div>
+              <span class="ai-results-proof-badge-text-{{ ai_gen_id }}">{{ block.settings.badge_1_text }}</span>
+            </div>
+          {% endif %}
+
+          {% if block.settings.badge_2_text != blank %}
+            <div class="ai-results-proof-badge-{{ ai_gen_id }}">
+              <div class="ai-results-proof-badge-icon-{{ ai_gen_id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+              </div>
+              <span class="ai-results-proof-badge-text-{{ ai_gen_id }}">{{ block.settings.badge_2_text }}</span>
+            </div>
+          {% endif %}
+
+          {% if block.settings.badge_3_text != blank %}
+            <div class="ai-results-proof-badge-{{ ai_gen_id }}">
+              <div class="ai-results-proof-badge-icon-{{ ai_gen_id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="8" r="7"></circle>
+                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                </svg>
+              </div>
+              <span class="ai-results-proof-badge-text-{{ ai_gen_id }}">{{ block.settings.badge_3_text }}</span>
+            </div>
+          {% endif %}
+
+          {% if block.settings.badge_4_text != blank %}
+            <div class="ai-results-proof-badge-{{ ai_gen_id }}">
+              <div class="ai-results-proof-badge-icon-{{ ai_gen_id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <span class="ai-results-proof-badge-text-{{ ai_gen_id }}">{{ block.settings.badge_4_text }}</span>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if block.settings.cta_text != blank %}
+      <div class="ai-results-proof-cta-{{ ai_gen_id }}">
+        <a href="{{ block.settings.cta_link }}" class="ai-results-proof-cta-button-{{ ai_gen_id }}">
+          {{ block.settings.cta_text }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</results-proof-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ResultsProof{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.style.display = 'block';
+      }
+    }
+
+    customElements.define('results-proof-{{ ai_gen_id }}', ResultsProof{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Results & proof",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section padding",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Headline"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Real People. Real Hair Regrowth."
+    },
+    {
+      "type": "text",
+      "id": "subheadline",
+      "label": "Subheadline"
+    },
+    {
+      "type": "range",
+      "id": "headline_size",
+      "label": "Headline size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "subheadline_size",
+      "label": "Subheadline size",
+      "min": 14,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Before & after gallery"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gallery",
+      "label": "Show gallery",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "before_image_1",
+      "label": "Before image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "after_image_1",
+      "label": "After image 1"
+    },
+    {
+      "type": "text",
+      "id": "caption_1",
+      "label": "Caption 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "before_image_2",
+      "label": "Before image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "after_image_2",
+      "label": "After image 2"
+    },
+    {
+      "type": "text",
+      "id": "caption_2",
+      "label": "Caption 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "before_image_3",
+      "label": "Before image 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "after_image_3",
+      "label": "After image 3"
+    },
+    {
+      "type": "text",
+      "id": "caption_3",
+      "label": "Caption 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "before_image_4",
+      "label": "Before image 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "after_image_4",
+      "label": "After image 4"
+    },
+    {
+      "type": "text",
+      "id": "caption_4",
+      "label": "Caption 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "before_image_5",
+      "label": "Before image 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "after_image_5",
+      "label": "After image 5"
+    },
+    {
+      "type": "text",
+      "id": "caption_5",
+      "label": "Caption 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "before_image_6",
+      "label": "Before image 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "after_image_6",
+      "label": "After image 6"
+    },
+    {
+      "type": "text",
+      "id": "caption_6",
+      "label": "Caption 6"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Testimonials"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_testimonials",
+      "label": "Show testimonials",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "testimonials_title",
+      "label": "Section title",
+      "default": "What Our Customers Say"
+    },
+    {
+      "type": "range",
+      "id": "section_title_size",
+      "label": "Section title size",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_quote_1",
+      "label": "Testimonial 1 quote",
+      "default": "I saw new growth at my temples in 5 weeks!"
+    },
+    {
+      "type": "text",
+      "id": "testimonial_author_1",
+      "label": "Testimonial 1 author",
+      "default": "Sarah M."
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_quote_2",
+      "label": "Testimonial 2 quote",
+      "default": "My hair feels fuller and my confidence is back."
+    },
+    {
+      "type": "text",
+      "id": "testimonial_author_2",
+      "label": "Testimonial 2 author",
+      "default": "Jessica L."
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_quote_3",
+      "label": "Testimonial 3 quote",
+      "default": "Nuvé Stamp is now my Sunday ritual. I even got rid of my wig."
+    },
+    {
+      "type": "text",
+      "id": "testimonial_author_3",
+      "label": "Testimonial 3 author",
+      "default": "Maria R."
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_quote_4",
+      "label": "Testimonial 4 quote"
+    },
+    {
+      "type": "text",
+      "id": "testimonial_author_4",
+      "label": "Testimonial 4 author"
+    },
+    {
+      "type": "range",
+      "id": "testimonial_border_radius",
+      "label": "Testimonial border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Statistics"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stats",
+      "label": "Show statistics",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "stat_number_1",
+      "label": "Stat 1 number",
+      "default": "91%"
+    },
+    {
+      "type": "text",
+      "id": "stat_label_1",
+      "label": "Stat 1 label",
+      "default": "of users noticed new hair"
+    },
+    {
+      "type": "text",
+      "id": "stat_number_2",
+      "label": "Stat 2 number",
+      "default": "4.9/5"
+    },
+    {
+      "type": "text",
+      "id": "stat_label_2",
+      "label": "Stat 2 label",
+      "default": "average rating"
+    },
+    {
+      "type": "text",
+      "id": "stat_number_3",
+      "label": "Stat 3 number",
+      "default": "5,000+"
+    },
+    {
+      "type": "text",
+      "id": "stat_label_3",
+      "label": "Stat 3 label",
+      "default": "customers worldwide"
+    },
+    {
+      "type": "range",
+      "id": "stat_number_size",
+      "label": "Stat number size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "stats_border_radius",
+      "label": "Stats border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Trust badges"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_badges",
+      "label": "Show trust badges",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_1_text",
+      "label": "Badge 1 text",
+      "default": "FDA Compliant"
+    },
+    {
+      "type": "text",
+      "id": "badge_2_text",
+      "label": "Badge 2 text",
+      "default": "Dermatologist Recommended"
+    },
+    {
+      "type": "text",
+      "id": "badge_3_text",
+      "label": "Badge 3 text",
+      "default": "30-Day Guarantee"
+    },
+    {
+      "type": "text",
+      "id": "badge_4_text",
+      "label": "Badge 4 text",
+      "default": "Trusted by 5,000+"
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button text",
+      "default": "See how Nuvé Stamp works"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "cta_border_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f3f3f4"
+    },
+    {
+      "type": "color",
+      "id": "headline_color",
+      "label": "Headline",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "label_background",
+      "label": "Before label background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "label_after_background",
+      "label": "After label background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "label_text_color",
+      "label": "Label text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "testimonial_background",
+      "label": "Testimonial background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "stats_background",
+      "label": "Stats background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "badge_background",
+      "label": "Badge background",
+      "default": "#f3f3f4"
+    },
+    {
+      "type": "color",
+      "id": "cta_background",
+      "label": "CTA background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "CTA text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_background",
+      "label": "CTA hover background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_text_color",
+      "label": "CTA hover text",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Results & proof"
+    }
+  ]
+}
+{% endschema %}

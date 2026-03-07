@@ -1,0 +1,628 @@
+{% doc %}
+  @prompt
+    Add a “Safety & Comfort” block:
+    
+    • FDA-cleared materials
+    • Painless for most users (gentle vibration)
+    • Safe for all hair types and scalp sensitivities
+    • Full instructions and support included
+    
+    
+    6. CTA or Support Link
+    
+    Prompt:
+    
+    Finish with a simple CTA bar:
+    
+    • “Ready to try it? [Shop Nuvé Stamp Now]”
+    • “Still have questions? [Contact Us] or see our FAQ.”
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-safety-comfort-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: {{ block.settings.section_padding }}px 0;
+  }
+
+  .ai-safety-comfort-container-{{ ai_gen_id }} {
+    background-color: {{ block.settings.background_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    padding: {{ block.settings.content_padding }}px;
+  }
+
+  .ai-safety-comfort-heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 {{ block.settings.spacing_after_heading }}px;
+    text-align: {{ block.settings.text_alignment }};
+  }
+
+  .ai-safety-comfort-features-{{ ai_gen_id }} {
+    display: grid;
+    gap: {{ block.settings.feature_spacing }}px;
+    margin-bottom: {{ block.settings.spacing_before_cta }}px;
+  }
+
+  .ai-safety-comfort-feature-{{ ai_gen_id }} {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .ai-safety-comfort-icon-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: {{ block.settings.icon_background }};
+    border-radius: 50%;
+    color: {{ block.settings.icon_color }};
+  }
+
+  .ai-safety-comfort-icon-{{ ai_gen_id }} svg {
+    width: calc({{ block.settings.icon_size }}px * 0.5);
+    height: calc({{ block.settings.icon_size }}px * 0.5);
+  }
+
+  .ai-safety-comfort-text-{{ ai_gen_id }} {
+    flex: 1;
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.text_size }}px;
+    line-height: 1.6;
+  }
+
+  .ai-safety-comfort-cta-{{ ai_gen_id }} {
+    background-color: {{ block.settings.cta_background }};
+    border-radius: {{ block.settings.cta_border_radius }}px;
+    padding: {{ block.settings.cta_padding }}px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .ai-safety-comfort-cta-row-{{ ai_gen_id }} {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .ai-safety-comfort-cta-text-{{ ai_gen_id }} {
+    color: {{ block.settings.cta_text_color }};
+    font-size: {{ block.settings.cta_text_size }}px;
+    margin: 0;
+  }
+
+  .ai-safety-comfort-cta-button-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    background-color: {{ block.settings.button_background }};
+    color: {{ block.settings.button_text_color }};
+    border: {{ block.settings.button_border_width }}px solid {{ block.settings.button_border_color }};
+    border-radius: {{ block.settings.button_border_radius }}px;
+    text-decoration: none;
+    font-size: {{ block.settings.button_text_size }}px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .ai-safety-comfort-cta-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_background }};
+    color: {{ block.settings.button_hover_text_color }};
+    border-color: {{ block.settings.button_hover_border_color }};
+  }
+
+  .ai-safety-comfort-cta-link-{{ ai_gen_id }} {
+    color: {{ block.settings.link_color }};
+    text-decoration: underline;
+    font-size: {{ block.settings.link_text_size }}px;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-safety-comfort-cta-link-{{ ai_gen_id }}:hover {
+    opacity: 0.7;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-safety-comfort-{{ ai_gen_id }} {
+      width: 100%;
+    }
+
+    .ai-safety-comfort-container-{{ ai_gen_id }} {
+      padding: {{ block.settings.content_padding | times: 0.7 }}px;
+    }
+
+    .ai-safety-comfort-heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size | times: 0.8 }}px;
+    }
+
+    .ai-safety-comfort-cta-row-{{ ai_gen_id }} {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .ai-safety-comfort-cta-button-{{ ai_gen_id }} {
+      width: 100%;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-safety-comfort-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-safety-comfort-container-{{ ai_gen_id }}">
+    {% if block.settings.heading != blank %}
+      <h2 class="ai-safety-comfort-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="ai-safety-comfort-features-{{ ai_gen_id }}">
+      {% if block.settings.feature_1_text != blank %}
+        <div class="ai-safety-comfort-feature-{{ ai_gen_id }}">
+          <div class="ai-safety-comfort-icon-{{ ai_gen_id }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <div class="ai-safety-comfort-text-{{ ai_gen_id }}">{{ block.settings.feature_1_text }}</div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.feature_2_text != blank %}
+        <div class="ai-safety-comfort-feature-{{ ai_gen_id }}">
+          <div class="ai-safety-comfort-icon-{{ ai_gen_id }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <div class="ai-safety-comfort-text-{{ ai_gen_id }}">{{ block.settings.feature_2_text }}</div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.feature_3_text != blank %}
+        <div class="ai-safety-comfort-feature-{{ ai_gen_id }}">
+          <div class="ai-safety-comfort-icon-{{ ai_gen_id }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <div class="ai-safety-comfort-text-{{ ai_gen_id }}">{{ block.settings.feature_3_text }}</div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.feature_4_text != blank %}
+        <div class="ai-safety-comfort-feature-{{ ai_gen_id }}">
+          <div class="ai-safety-comfort-icon-{{ ai_gen_id }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <div class="ai-safety-comfort-text-{{ ai_gen_id }}">{{ block.settings.feature_4_text }}</div>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ai-safety-comfort-cta-{{ ai_gen_id }}">
+      {% if block.settings.cta_primary_text != blank %}
+        <div class="ai-safety-comfort-cta-row-{{ ai_gen_id }}">
+          <p class="ai-safety-comfort-cta-text-{{ ai_gen_id }}">{{ block.settings.cta_primary_text }}</p>
+          {% if block.settings.cta_primary_button_text != blank and block.settings.cta_primary_button_link != blank %}
+            <a href="{{ block.settings.cta_primary_button_link }}" class="ai-safety-comfort-cta-button-{{ ai_gen_id }}">
+              {{ block.settings.cta_primary_button_text }}
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if block.settings.cta_secondary_text != blank %}
+        <div class="ai-safety-comfort-cta-row-{{ ai_gen_id }}">
+          <p class="ai-safety-comfort-cta-text-{{ ai_gen_id }}">{{ block.settings.cta_secondary_text }}</p>
+          {% if block.settings.cta_contact_text != blank and block.settings.cta_contact_link != blank %}
+            <a href="{{ block.settings.cta_contact_link }}" class="ai-safety-comfort-cta-link-{{ ai_gen_id }}">
+              {{ block.settings.cta_contact_text }}
+            </a>
+          {% endif %}
+          {% if block.settings.cta_faq_text != blank and block.settings.cta_faq_link != blank %}
+            <span class="ai-safety-comfort-cta-text-{{ ai_gen_id }}">or</span>
+            <a href="{{ block.settings.cta_faq_link }}" class="ai-safety-comfort-cta-link-{{ ai_gen_id }}">
+              {{ block.settings.cta_faq_text }}
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Safety & comfort",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Safety & Comfort"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Features"
+    },
+    {
+      "type": "text",
+      "id": "feature_1_text",
+      "label": "Feature 1",
+      "default": "FDA-cleared materials"
+    },
+    {
+      "type": "text",
+      "id": "feature_2_text",
+      "label": "Feature 2",
+      "default": "Painless for most users (gentle vibration)"
+    },
+    {
+      "type": "text",
+      "id": "feature_3_text",
+      "label": "Feature 3",
+      "default": "Safe for all hair types and scalp sensitivities"
+    },
+    {
+      "type": "text",
+      "id": "feature_4_text",
+      "label": "Feature 4",
+      "default": "Full instructions and support included"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Text size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "icon_background",
+      "label": "Icon background",
+      "default": "#d6c8f5"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "text",
+      "id": "cta_primary_text",
+      "label": "Primary CTA text",
+      "default": "Ready to try it?"
+    },
+    {
+      "type": "text",
+      "id": "cta_primary_button_text",
+      "label": "Primary button text",
+      "default": "Shop Nuvé Stamp Now"
+    },
+    {
+      "type": "url",
+      "id": "cta_primary_button_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "cta_secondary_text",
+      "label": "Secondary CTA text",
+      "default": "Still have questions?"
+    },
+    {
+      "type": "text",
+      "id": "cta_contact_text",
+      "label": "Contact link text",
+      "default": "Contact Us"
+    },
+    {
+      "type": "url",
+      "id": "cta_contact_link",
+      "label": "Contact link"
+    },
+    {
+      "type": "text",
+      "id": "cta_faq_text",
+      "label": "FAQ link text",
+      "default": "see our FAQ"
+    },
+    {
+      "type": "url",
+      "id": "cta_faq_link",
+      "label": "FAQ link"
+    },
+    {
+      "type": "range",
+      "id": "cta_text_size",
+      "label": "CTA text size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "CTA text color",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "color",
+      "id": "cta_background",
+      "label": "CTA background",
+      "default": "#eef1ea"
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "range",
+      "id": "button_text_size",
+      "label": "Text size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Border color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Hover background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_border_color",
+      "label": "Hover border color",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Link style"
+    },
+    {
+      "type": "range",
+      "id": "link_text_size",
+      "label": "Text size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link color",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f3f3f4"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "content_padding",
+      "label": "Content padding",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section padding",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "spacing_after_heading",
+      "label": "Space after heading",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "feature_spacing",
+      "label": "Space between features",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "spacing_before_cta",
+      "label": "Space before CTA",
+      "min": 16,
+      "max": 64,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "cta_padding",
+      "label": "CTA padding",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "cta_border_radius",
+      "label": "CTA border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    }
+  ],
+  "presets": [
+    {
+      "name": "Safety & comfort"
+    }
+  ]
+}
+{% endschema %}

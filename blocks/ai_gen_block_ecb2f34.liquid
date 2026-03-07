@@ -1,0 +1,968 @@
+{% doc %}
+  @prompt
+    Create a compelling benefit grid for a modern hair regrowth product brand.
+    
+    Headline: “Why Choose Nuve Stamp?”
+    
+    Grid Items (each with a simple icon/visual and short benefit sentence):
+    
+    • “Visible results for most users within 2–4 weeks”
+    • “Combines 3 proven therapies for maximum regrowth”
+    • “Clinically inspired, drug-free, and safe for home use”
+    • “Comfort-focused with micro-vibration for a relaxing scalp treatment”
+    • “No downtime, no pain—just measurable progress”
+    • “Loved by men and women worldwide”
+    • Design: Display as 2–3 columns (desktop) or stacked (mobile), strong icons, clean layout with Nuve brand accent colors.
+    • End with a soft callout or guarantee badge: “30-day See New Growth Guarantee”
+    CTA Button (optional): “See Results Gallery”
+    
+    
+    
+    Alternative for more social proof:
+    If you already have strong before/after images and testimonials, put “Real People, Real Results” here as a visual slider or grid., Can you add secure payment logos and trust icons to the guarantee trust 30 see new growth bar
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-benefit-grid-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: {{ block.settings.section_padding }}px 20px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-benefit-grid-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .ai-benefit-grid-header-{{ ai_gen_id }} {
+    text-align: {{ block.settings.heading_alignment }};
+    margin-bottom: {{ block.settings.heading_spacing }}px;
+  }
+
+  .ai-benefit-grid-heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.heading_color }};
+    margin: 0;
+    font-weight: 700;
+  }
+
+  .ai-benefit-grid-items-{{ ai_gen_id }} {
+    display: grid;
+    {% if block.settings.columns_desktop == '2' %}
+      grid-template-columns: repeat(2, 1fr);
+    {% else %}
+      grid-template-columns: repeat(3, 1fr);
+    {% endif %}
+    gap: {{ block.settings.grid_gap }}px;
+    margin-bottom: {{ block.settings.guarantee_spacing }}px;
+  }
+
+  .ai-benefit-item-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: {{ block.settings.item_alignment }};
+    text-align: {{ block.settings.item_alignment }};
+    padding: {{ block.settings.item_padding }}px;
+    background-color: {{ block.settings.item_background }};
+    border-radius: {{ block.settings.item_border_radius }}px;
+    border: {{ block.settings.item_border_width }}px solid {{ block.settings.item_border_color }};
+  }
+
+  .ai-benefit-icon-{{ ai_gen_id }} {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    margin-bottom: {{ block.settings.icon_spacing }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: {{ block.settings.icon_background }};
+    border-radius: {{ block.settings.icon_border_radius }}px;
+    flex-shrink: 0;
+  }
+
+  .ai-benefit-icon-{{ ai_gen_id }} svg {
+    width: calc({{ block.settings.icon_size }}px * 0.6);
+    height: calc({{ block.settings.icon_size }}px * 0.6);
+    stroke: {{ block.settings.icon_color }};
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .ai-benefit-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.text_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .ai-benefit-guarantee-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: {{ block.settings.guarantee_gap }}px;
+    padding: {{ block.settings.guarantee_padding }}px;
+    background-color: {{ block.settings.guarantee_background }};
+    border-radius: {{ block.settings.guarantee_border_radius }}px;
+    border: {{ block.settings.guarantee_border_width }}px solid {{ block.settings.guarantee_border_color }};
+    margin-bottom: {{ block.settings.cta_spacing }}px;
+  }
+
+  .ai-benefit-guarantee-main-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .ai-benefit-guarantee-icon-{{ ai_gen_id }} {
+    width: {{ block.settings.guarantee_icon_size }}px;
+    height: {{ block.settings.guarantee_icon_size }}px;
+    flex-shrink: 0;
+  }
+
+  .ai-benefit-guarantee-icon-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    stroke: {{ block.settings.guarantee_icon_color }};
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .ai-benefit-guarantee-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.guarantee_text_size }}px;
+    color: {{ block.settings.guarantee_text_color }};
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .ai-benefit-trust-badges-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: {{ block.settings.trust_badge_gap }}px;
+    flex-wrap: wrap;
+  }
+
+  .ai-benefit-trust-badge-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: {{ block.settings.trust_badge_height }}px;
+    opacity: {{ block.settings.trust_badge_opacity }};
+  }
+
+  .ai-benefit-trust-badge-{{ ai_gen_id }} svg {
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+  }
+
+  .ai-benefit-trust-divider-{{ ai_gen_id }} {
+    width: 1px;
+    height: {{ block.settings.trust_badge_height }}px;
+    background-color: {{ block.settings.guarantee_border_color }};
+    opacity: 0.5;
+  }
+
+  .ai-benefit-cta-{{ ai_gen_id }} {
+    text-align: center;
+  }
+
+  .ai-benefit-cta-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 14px 32px;
+    background-color: {{ block.settings.cta_background }};
+    color: {{ block.settings.cta_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.cta_border_radius }}px;
+    font-size: {{ block.settings.cta_text_size }}px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-benefit-cta-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.cta_hover_background }};
+    color: {{ block.settings.cta_hover_text_color }};
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-benefit-grid-items-{{ ai_gen_id }} {
+      {% if block.settings.columns_tablet == '1' %}
+        grid-template-columns: 1fr;
+      {% else %}
+        grid-template-columns: repeat(2, 1fr);
+      {% endif %}
+    }
+
+    .ai-benefit-grid-heading-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.heading_size }}px * 0.8);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-benefit-grid-items-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+    }
+
+    .ai-benefit-grid-heading-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.heading_size }}px * 0.7);
+    }
+
+    .ai-benefit-item-{{ ai_gen_id }} {
+      flex-direction: row;
+      text-align: left;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .ai-benefit-icon-{{ ai_gen_id }} {
+      margin-bottom: 0;
+    }
+
+    .ai-benefit-trust-badges-{{ ai_gen_id }} {
+      gap: {{ block.settings.trust_badge_gap | divided_by: 2 }}px;
+    }
+
+    .ai-benefit-trust-badge-{{ ai_gen_id }} {
+      height: calc({{ block.settings.trust_badge_height }}px * 0.8);
+    }
+
+    .ai-benefit-trust-divider-{{ ai_gen_id }} {
+      height: calc({{ block.settings.trust_badge_height }}px * 0.8);
+    }
+  }
+{% endstyle %}
+
+<div class="ai-benefit-grid-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-benefit-grid-container-{{ ai_gen_id }}">
+    {% if block.settings.heading != blank %}
+      <div class="ai-benefit-grid-header-{{ ai_gen_id }}">
+        <h2 class="ai-benefit-grid-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+      </div>
+    {% endif %}
+
+    <div class="ai-benefit-grid-items-{{ ai_gen_id }}">
+      {% if block.settings.benefit_1_text != blank %}
+        <div class="ai-benefit-item-{{ ai_gen_id }}">
+          <div class="ai-benefit-icon-{{ ai_gen_id }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+          </div>
+          <p class="ai-benefit-text-{{ ai_gen_id }}">{{ block.settings.benefit_1_text }}</p>
+        </div>
+      {% endif %}
+
+      {% if block.settings.benefit_2_text != blank %}
+        <div class="ai-benefit-item-{{ ai_gen_id }}">
+          <div class="ai-benefit-icon-{{ ai_gen_id }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <p class="ai-benefit-text-{{ ai_gen_id }}">{{ block.settings.benefit_2_text }}</p>
+        </div>
+      {% endif %}
+
+      {% if block.settings.benefit_3_text != blank %}
+        <div class="ai-benefit-item-{{ ai_gen_id }}">
+          <div class="ai-benefit-icon-{{ ai_gen_id }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <p class="ai-benefit-text-{{ ai_gen_id }}">{{ block.settings.benefit_3_text }}</p>
+        </div>
+      {% endif %}
+
+      {% if block.settings.benefit_4_text != blank %}
+        <div class="ai-benefit-item-{{ ai_gen_id }}">
+          <div class="ai-benefit-icon-{{ ai_gen_id }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+          </div>
+          <p class="ai-benefit-text-{{ ai_gen_id }}">{{ block.settings.benefit_4_text }}</p>
+        </div>
+      {% endif %}
+
+      {% if block.settings.benefit_5_text != blank %}
+        <div class="ai-benefit-item-{{ ai_gen_id }}">
+          <div class="ai-benefit-icon-{{ ai_gen_id }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+          </div>
+          <p class="ai-benefit-text-{{ ai_gen_id }}">{{ block.settings.benefit_5_text }}</p>
+        </div>
+      {% endif %}
+
+      {% if block.settings.benefit_6_text != blank %}
+        <div class="ai-benefit-item-{{ ai_gen_id }}">
+          <div class="ai-benefit-icon-{{ ai_gen_id }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <p class="ai-benefit-text-{{ ai_gen_id }}">{{ block.settings.benefit_6_text }}</p>
+        </div>
+      {% endif %}
+    </div>
+
+    {% if block.settings.show_guarantee %}
+      <div class="ai-benefit-guarantee-{{ ai_gen_id }}">
+        <div class="ai-benefit-guarantee-main-{{ ai_gen_id }}">
+          <div class="ai-benefit-guarantee-icon-{{ ai_gen_id }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <polyline points="9 12 11 14 15 10"></polyline>
+            </svg>
+          </div>
+          <p class="ai-benefit-guarantee-text-{{ ai_gen_id }}">{{ block.settings.guarantee_text }}</p>
+        </div>
+
+        {% if block.settings.show_trust_badges %}
+          <div class="ai-benefit-trust-badges-{{ ai_gen_id }}">
+            {% if block.settings.show_ssl_badge %}
+              <div class="ai-benefit-trust-badge-{{ ai_gen_id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 32" fill="{{ block.settings.trust_badge_color }}">
+                  <rect x="1" y="1" width="78" height="30" rx="4" fill="none" stroke="{{ block.settings.trust_badge_color }}" stroke-width="1.5"/>
+                  <path d="M12 10h-2v4c0 2.2 1.8 4 4 4s4-1.8 4-4v-4h-2v4c0 1.1-.9 2-2 2s-2-.9-2-2v-4zm2-2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+                  <text x="22" y="20" font-family="Arial, sans-serif" font-size="10" font-weight="600" fill="{{ block.settings.trust_badge_color }}">SSL SECURE</text>
+                </svg>
+              </div>
+              <div class="ai-benefit-trust-divider-{{ ai_gen_id }}"></div>
+            {% endif %}
+
+            {% if block.settings.show_payment_badges %}
+              <div class="ai-benefit-trust-badge-{{ ai_gen_id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 24" fill="{{ block.settings.trust_badge_color }}">
+                  <rect width="38" height="24" rx="3" fill="none" stroke="{{ block.settings.trust_badge_color }}" stroke-width="1.5"/>
+                  <rect x="3" y="6" width="32" height="3" rx="1" fill="{{ block.settings.trust_badge_color }}"/>
+                  <rect x="3" y="14" width="10" height="4" rx="1" fill="{{ block.settings.trust_badge_color }}"/>
+                  <rect x="16" y="14" width="6" height="4" rx="1" fill="{{ block.settings.trust_badge_color }}"/>
+                  <rect x="25" y="14" width="10" height="4" rx="1" fill="{{ block.settings.trust_badge_color }}"/>
+                </svg>
+              </div>
+              <div class="ai-benefit-trust-badge-{{ ai_gen_id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 24" fill="{{ block.settings.trust_badge_color }}">
+                  <rect width="38" height="24" rx="3" fill="none" stroke="{{ block.settings.trust_badge_color }}" stroke-width="1.5"/>
+                  <circle cx="12" cy="12" r="6" fill="none" stroke="{{ block.settings.trust_badge_color }}" stroke-width="1.5"/>
+                  <circle cx="26" cy="12" r="6" fill="none" stroke="{{ block.settings.trust_badge_color }}" stroke-width="1.5"/>
+                  <path d="M12 12h14" stroke="{{ block.settings.trust_badge_color }}" stroke-width="1.5"/>
+                </svg>
+              </div>
+              <div class="ai-benefit-trust-badge-{{ ai_gen_id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 24" fill="{{ block.settings.trust_badge_color }}">
+                  <rect width="38" height="24" rx="3" fill="none" stroke="{{ block.settings.trust_badge_color }}" stroke-width="1.5"/>
+                  <path d="M8 12l4 4 8-8" fill="none" stroke="{{ block.settings.trust_badge_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <text x="22" y="15" font-family="Arial, sans-serif" font-size="8" font-weight="700" fill="{{ block.settings.trust_badge_color }}">PAY</text>
+                </svg>
+              </div>
+              <div class="ai-benefit-trust-divider-{{ ai_gen_id }}"></div>
+            {% endif %}
+
+            {% if block.settings.show_money_back %}
+              <div class="ai-benefit-trust-badge-{{ ai_gen_id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 32" fill="{{ block.settings.trust_badge_color }}">
+                  <rect x="1" y="1" width="78" height="30" rx="4" fill="none" stroke="{{ block.settings.trust_badge_color }}" stroke-width="1.5"/>
+                  <path d="M14 16c0-2.2 1.8-4 4-4s4 1.8 4 4-1.8 4-4 4-4-1.8-4-4zm2 0c0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2-2 .9-2 2z"/>
+                  <path d="M12 10h12M12 22h12" stroke="{{ block.settings.trust_badge_color }}" stroke-width="1.5"/>
+                  <text x="28" y="20" font-family="Arial, sans-serif" font-size="9" font-weight="600" fill="{{ block.settings.trust_badge_color }}">MONEY BACK</text>
+                </svg>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if block.settings.show_cta and block.settings.cta_text != blank %}
+      <div class="ai-benefit-cta-{{ ai_gen_id }}">
+        <a href="{{ block.settings.cta_link }}" class="ai-benefit-cta-button-{{ ai_gen_id }}">
+          {{ block.settings.cta_text }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Benefit grid",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why Choose Nuve Stamp?"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "range",
+      "id": "heading_spacing",
+      "label": "Spacing below heading",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Benefits"
+    },
+    {
+      "type": "textarea",
+      "id": "benefit_1_text",
+      "label": "Benefit 1",
+      "default": "Visible results for most users within 2–4 weeks"
+    },
+    {
+      "type": "textarea",
+      "id": "benefit_2_text",
+      "label": "Benefit 2",
+      "default": "Combines 3 proven therapies for maximum regrowth"
+    },
+    {
+      "type": "textarea",
+      "id": "benefit_3_text",
+      "label": "Benefit 3",
+      "default": "Clinically inspired, drug-free, and safe for home use"
+    },
+    {
+      "type": "textarea",
+      "id": "benefit_4_text",
+      "label": "Benefit 4",
+      "default": "Comfort-focused with micro-vibration for a relaxing scalp treatment"
+    },
+    {
+      "type": "textarea",
+      "id": "benefit_5_text",
+      "label": "Benefit 5",
+      "default": "No downtime, no pain—just measurable progress"
+    },
+    {
+      "type": "textarea",
+      "id": "benefit_6_text",
+      "label": "Benefit 6",
+      "default": "Loved by men and women worldwide"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Columns on desktop",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "select",
+      "id": "columns_tablet",
+      "label": "Columns on tablet",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Gap between items",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section padding",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Benefit item style"
+    },
+    {
+      "type": "select",
+      "id": "item_alignment",
+      "label": "Item alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "item_padding",
+      "label": "Item padding",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "item_background",
+      "label": "Item background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "item_border_width",
+      "label": "Item border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "item_border_color",
+      "label": "Item border color",
+      "default": "#e6e6e6"
+    },
+    {
+      "type": "range",
+      "id": "item_border_radius",
+      "label": "Item border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Icon style"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 40,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "color",
+      "id": "icon_background",
+      "label": "Icon background",
+      "default": "#d6c8f5"
+    },
+    {
+      "type": "range",
+      "id": "icon_border_radius",
+      "label": "Icon border radius",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "icon_spacing",
+      "label": "Spacing below icon",
+      "min": 8,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Text style"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Text size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "header",
+      "content": "Guarantee badge"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_guarantee",
+      "label": "Show guarantee badge",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "guarantee_text",
+      "label": "Guarantee text",
+      "default": "30-day See New Growth Guarantee"
+    },
+    {
+      "type": "range",
+      "id": "guarantee_gap",
+      "label": "Gap between elements",
+      "min": 8,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "guarantee_padding",
+      "label": "Guarantee padding",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "guarantee_background",
+      "label": "Guarantee background",
+      "default": "#eef1ea"
+    },
+    {
+      "type": "range",
+      "id": "guarantee_border_width",
+      "label": "Guarantee border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "guarantee_border_color",
+      "label": "Guarantee border color",
+      "default": "#d0e0c0"
+    },
+    {
+      "type": "range",
+      "id": "guarantee_border_radius",
+      "label": "Guarantee border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "guarantee_icon_size",
+      "label": "Guarantee icon size",
+      "min": 20,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "guarantee_icon_color",
+      "label": "Guarantee icon color",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "range",
+      "id": "guarantee_text_size",
+      "label": "Guarantee text size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "guarantee_text_color",
+      "label": "Guarantee text color",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "range",
+      "id": "guarantee_spacing",
+      "label": "Spacing below guarantee",
+      "min": 20,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Trust badges"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_badges",
+      "label": "Show trust badges",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_ssl_badge",
+      "label": "Show SSL secure badge",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_badges",
+      "label": "Show payment badges",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_money_back",
+      "label": "Show money back badge",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "trust_badge_height",
+      "label": "Badge height",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "trust_badge_gap",
+      "label": "Gap between badges",
+      "min": 8,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "trust_badge_opacity",
+      "label": "Badge opacity",
+      "min": 0.3,
+      "max": 1,
+      "step": 0.1,
+      "default": 0.7
+    },
+    {
+      "type": "color",
+      "id": "trust_badge_color",
+      "label": "Badge color",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show CTA button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button text",
+      "default": "See Results Gallery"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "cta_text_size",
+      "label": "Button text size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "cta_background",
+      "label": "Button background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_background",
+      "label": "Button hover background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_text_color",
+      "label": "Button hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "cta_border_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "cta_spacing",
+      "label": "Spacing above button",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f3f3f4"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Benefit grid"
+    }
+  ]
+}
+{% endschema %}

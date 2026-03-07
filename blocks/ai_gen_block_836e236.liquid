@@ -1,0 +1,835 @@
+{% doc %}
+  @prompt
+    Create a high-impact “Real Results” section for a premium hair regrowth brand, Nuvé Stamp.
+    
+    Headline: “See the Nuvé Stamp Difference”
+    
+    Feature types:
+    
+    • Before & After gallery — Show split or slider images of actual scalp transformations (thicker hair, denser hairline) with “Before” and “After” labels on each.
+    • User testimonial quotes — Display 2-3 honest, relatable reviews with user names and (optional) small profile images.
+    Example testimonial copy:
+    “I started seeing new growth after just a month—and my barber even noticed!” – Alex M.
+    “I tried everything. Only Nuvé Stamp made my part look fuller again.” – Priya S.
+    “The vibrations made it so much less scary than regular rollers!” – Jack D.
+    
+    Design:
+    
+    • Visual grid or slider for before/after images.
+    • Below that, testimonials as cards or in a scrolling carousel.
+    • Brand colors (subtle lilac accent, white/near-black background)
+    • Section should look trustworthy, authentic, and upbeat (not spammy).
+    Optional CTA: “See More Results” or “Read All Reviews”
+    
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-results-section-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: {{ block.settings.section_padding }}px 20px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-results-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .ai-results-heading-{{ ai_gen_id }} {
+    text-align: center;
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 {{ block.settings.heading_spacing }}px;
+  }
+
+  .ai-results-gallery-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat({{ block.settings.columns_desktop }}, 1fr);
+    gap: {{ block.settings.gallery_gap }}px;
+    margin-bottom: {{ block.settings.section_spacing }}px;
+  }
+
+  .ai-results-comparison-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    background-color: #f5f5f5;
+  }
+
+  .ai-results-comparison-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .ai-results-comparison-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-results-comparison-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 200px;
+    max-height: 200px;
+  }
+
+  .ai-results-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .ai-results-labels-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    pointer-events: none;
+  }
+
+  .ai-results-label-{{ ai_gen_id }} {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: {{ block.settings.label_padding }}px;
+  }
+
+  .ai-results-label-text-{{ ai_gen_id }} {
+    background-color: {{ block.settings.label_background }};
+    color: {{ block.settings.label_text_color }};
+    padding: 6px 12px;
+    border-radius: {{ block.settings.label_border_radius }}px;
+    font-size: {{ block.settings.label_font_size }}px;
+    font-weight: 600;
+  }
+
+  .ai-results-divider-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    background-color: {{ block.settings.divider_color }};
+    transform: translateX(-50%);
+  }
+
+  .ai-results-testimonials-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat({{ block.settings.testimonial_columns }}, 1fr);
+    gap: {{ block.settings.testimonial_gap }}px;
+    margin-bottom: {{ block.settings.cta_spacing }}px;
+  }
+
+  .ai-results-testimonial-card-{{ ai_gen_id }} {
+    background-color: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    padding: {{ block.settings.card_padding }}px;
+    border: {{ block.settings.card_border_width }}px solid {{ block.settings.card_border_color }};
+  }
+
+  .ai-results-testimonial-quote-{{ ai_gen_id }} {
+    font-size: {{ block.settings.quote_font_size }}px;
+    color: {{ block.settings.quote_color }};
+    line-height: 1.6;
+    margin: 0 0 16px;
+  }
+
+  .ai-results-testimonial-author-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .ai-results-author-image-{{ ai_gen_id }} {
+    width: {{ block.settings.author_image_size }}px;
+    height: {{ block.settings.author_image_size }}px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .ai-results-author-image-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-results-author-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: {{ block.settings.accent_color }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: {{ block.settings.background_color }};
+    font-weight: 600;
+    font-size: {{ block.settings.author_image_size | divided_by: 2 }}px;
+  }
+
+  .ai-results-author-name-{{ ai_gen_id }} {
+    font-size: {{ block.settings.author_font_size }}px;
+    color: {{ block.settings.author_color }};
+    font-weight: 600;
+  }
+
+  .ai-results-cta-wrapper-{{ ai_gen_id }} {
+    text-align: center;
+  }
+
+  .ai-results-cta-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: {{ block.settings.cta_padding_vertical }}px {{ block.settings.cta_padding_horizontal }}px;
+    background-color: {{ block.settings.cta_background }};
+    color: {{ block.settings.cta_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.cta_border_radius }}px;
+    font-size: {{ block.settings.cta_font_size }}px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: {{ block.settings.cta_border_width }}px solid {{ block.settings.cta_border_color }};
+  }
+
+  .ai-results-cta-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.cta_hover_background }};
+    color: {{ block.settings.cta_hover_text_color }};
+    border-color: {{ block.settings.cta_hover_border_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-results-gallery-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_mobile }}, 1fr);
+    }
+
+    .ai-results-testimonials-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+    }
+
+    .ai-results-heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size | times: 0.7 }}px;
+    }
+  }
+{% endstyle %}
+
+<nuve-results-{{ ai_gen_id }} class="ai-results-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-results-container-{{ ai_gen_id }}">
+    {% if block.settings.heading != blank %}
+      <h2 class="ai-results-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="ai-results-gallery-{{ ai_gen_id }}">
+      {% for i in (1..3) %}
+        {% liquid
+          assign image_key = 'comparison_image_' | append: i
+          assign comparison_image = block.settings[image_key]
+        %}
+        
+        <div class="ai-results-comparison-{{ ai_gen_id }}">
+          {% if comparison_image %}
+            <img
+              src="{{ comparison_image | image_url: width: 800 }}"
+              alt="{{ comparison_image.alt | escape }}"
+              loading="lazy"
+              width="{{ comparison_image.width }}"
+              height="{{ comparison_image.height }}"
+              class="ai-results-comparison-image-{{ ai_gen_id }}"
+            >
+          {% else %}
+            <div class="ai-results-comparison-placeholder-{{ ai_gen_id }}">
+              {{ 'image' | placeholder_svg_tag }}
+              <div class="ai-results-empty-state-{{ ai_gen_id }}">
+                Add before/after image {{ i }}
+              </div>
+            </div>
+          {% endif %}
+          
+          <div class="ai-results-labels-{{ ai_gen_id }}">
+            <div class="ai-results-label-{{ ai_gen_id }}">
+              <span class="ai-results-label-text-{{ ai_gen_id }}">{{ block.settings.before_label }}</span>
+            </div>
+            <div class="ai-results-label-{{ ai_gen_id }}">
+              <span class="ai-results-label-text-{{ ai_gen_id }}">{{ block.settings.after_label }}</span>
+            </div>
+          </div>
+          
+          <div class="ai-results-divider-{{ ai_gen_id }}"></div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="ai-results-testimonials-{{ ai_gen_id }}">
+      {% for i in (1..3) %}
+        {% liquid
+          assign quote_key = 'testimonial_quote_' | append: i
+          assign author_key = 'testimonial_author_' | append: i
+          assign image_key = 'testimonial_image_' | append: i
+          
+          assign quote = block.settings[quote_key]
+          assign author = block.settings[author_key]
+          assign author_image = block.settings[image_key]
+        %}
+        
+        {% if quote != blank %}
+          <div class="ai-results-testimonial-card-{{ ai_gen_id }}">
+            <p class="ai-results-testimonial-quote-{{ ai_gen_id }}">"{{ quote }}"</p>
+            
+            <div class="ai-results-testimonial-author-{{ ai_gen_id }}">
+              <div class="ai-results-author-image-{{ ai_gen_id }}">
+                {% if author_image %}
+                  <img
+                    src="{{ author_image | image_url: width: 100 }}"
+                    alt="{{ author | escape }}"
+                    loading="lazy"
+                    width="100"
+                    height="100"
+                  >
+                {% else %}
+                  <div class="ai-results-author-placeholder-{{ ai_gen_id }}">
+                    {% if author != blank %}
+                      {{ author | slice: 0 }}
+                    {% else %}
+                      ?
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+              
+              {% if author != blank %}
+                <span class="ai-results-author-name-{{ ai_gen_id }}">{{ author }}</span>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {% if block.settings.show_cta and block.settings.cta_text != blank %}
+      <div class="ai-results-cta-wrapper-{{ ai_gen_id }}">
+        <a href="{{ block.settings.cta_link }}" class="ai-results-cta-{{ ai_gen_id }}">
+          {{ block.settings.cta_text }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</nuve-results-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class NuveResults{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.style.display = 'block';
+      }
+    }
+
+    customElements.define('nuve-results-{{ ai_gen_id }}', NuveResults{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Real results section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "See the Nuvé Stamp Difference"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "heading_spacing",
+      "label": "Heading spacing",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section padding",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_spacing",
+      "label": "Gallery to testimonials spacing",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#d6c8f5"
+    },
+    {
+      "type": "header",
+      "content": "Before & after gallery"
+    },
+    {
+      "type": "image_picker",
+      "id": "comparison_image_1",
+      "label": "Comparison image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "comparison_image_2",
+      "label": "Comparison image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "comparison_image_3",
+      "label": "Comparison image 3"
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Columns on desktop",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "range",
+      "id": "gallery_gap",
+      "label": "Gap between images",
+      "min": 8,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image border radius",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "inline_richtext",
+      "id": "before_label",
+      "label": "Before label",
+      "default": "Before"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "after_label",
+      "label": "After label",
+      "default": "After"
+    },
+    {
+      "type": "range",
+      "id": "label_font_size",
+      "label": "Label font size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "label_padding",
+      "label": "Label padding",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "label_border_radius",
+      "label": "Label border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "color",
+      "id": "label_background",
+      "label": "Label background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "label_text_color",
+      "label": "Label text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Testimonials"
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_quote_1",
+      "label": "Quote 1",
+      "default": "I started seeing new growth after just a month—and my barber even noticed!"
+    },
+    {
+      "type": "text",
+      "id": "testimonial_author_1",
+      "label": "Author 1",
+      "default": "Alex M."
+    },
+    {
+      "type": "image_picker",
+      "id": "testimonial_image_1",
+      "label": "Author image 1"
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_quote_2",
+      "label": "Quote 2",
+      "default": "I tried everything. Only Nuvé Stamp made my part look fuller again."
+    },
+    {
+      "type": "text",
+      "id": "testimonial_author_2",
+      "label": "Author 2",
+      "default": "Priya S."
+    },
+    {
+      "type": "image_picker",
+      "id": "testimonial_image_2",
+      "label": "Author image 2"
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_quote_3",
+      "label": "Quote 3",
+      "default": "The vibrations made it so much less scary than regular rollers!"
+    },
+    {
+      "type": "text",
+      "id": "testimonial_author_3",
+      "label": "Author 3",
+      "default": "Jack D."
+    },
+    {
+      "type": "image_picker",
+      "id": "testimonial_image_3",
+      "label": "Author image 3"
+    },
+    {
+      "type": "select",
+      "id": "testimonial_columns",
+      "label": "Columns on desktop",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "range",
+      "id": "testimonial_gap",
+      "label": "Gap between cards",
+      "min": 12,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card padding",
+      "min": 16,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_border_width",
+      "label": "Card border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#f3f3f4"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border",
+      "default": "#e6e6e6"
+    },
+    {
+      "type": "range",
+      "id": "quote_font_size",
+      "label": "Quote font size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "quote_color",
+      "label": "Quote color",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "range",
+      "id": "author_image_size",
+      "label": "Author image size",
+      "min": 32,
+      "max": 64,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "author_font_size",
+      "label": "Author font size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "author_color",
+      "label": "Author color",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show CTA button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button text",
+      "default": "See More Results"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "cta_spacing",
+      "label": "Button top spacing",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "cta_font_size",
+      "label": "Button font size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "cta_padding_vertical",
+      "label": "Button vertical padding",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "cta_padding_horizontal",
+      "label": "Button horizontal padding",
+      "min": 16,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "cta_border_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "cta_border_width",
+      "label": "Button border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "cta_background",
+      "label": "Button background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cta_border_color",
+      "label": "Button border",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_background",
+      "label": "Button hover background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_text_color",
+      "label": "Button hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_border_color",
+      "label": "Button hover border",
+      "default": "#333333"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Real results section"
+    }
+  ]
+}
+{% endschema %}

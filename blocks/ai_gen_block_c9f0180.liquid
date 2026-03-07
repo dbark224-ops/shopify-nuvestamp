@@ -1,0 +1,630 @@
+{% doc %}
+  @prompt
+    Create a science-backed “How It Works” section for a premium hair regrowth brand, Nuvé Stamp.
+    
+    Headline: “How Nuvé Stamp Reactivates Your Hair”
+    
+    Subheadline: “3 Proven Technologies. 1 Simple Routine.”
+    
+    Present these as horizontal steps or feature blocks, each with an icon or simple graphic:
+    
+    1. Microneedling
+    “Tiny precision needles create micro-channels in the scalp, triggering your body’s natural growth response and maximizing serum absorption.”
+    2. Vibration Therapy
+    “Soothes the scalp, enhances comfort, and helps drive growth factors deeper—no pain, no fuss.”
+    3. Red Light Therapy
+    “Stimulates hair follicles at a cellular level, boosting growth and supporting thick, healthy regrowth—clinically proven wavelengths included.”
+    Footer statement:
+    “Use Nuvé Stamp just once per week and start noticing stronger, fuller hair in as little as 3 weeks.”
+    
+    Design:
+    
+    • Modern, scientific, clean (brand lilac accent backgrounds or icons)
+    • Each technology pillar gets a matching visual/icon
+    • Optional: Add a “Learn more about our science” text link/button or scroll cue
+    Section should smoothly transition into real user results/testimonials.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-how-it-works-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding: {{ block.settings.section_padding_top }}px 20px {{ block.settings.section_padding_bottom }}px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-how-it-works-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: {{ block.settings.desktop_width_percent }}%;
+  }
+
+  .ai-how-it-works-header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: {{ block.settings.header_spacing }}px;
+  }
+
+  .ai-how-it-works-headline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.headline_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.headline_color }};
+    margin: 0 0 {{ block.settings.headline_spacing }}px;
+    line-height: 1.2;
+  }
+
+  .ai-how-it-works-subheadline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subheadline_size }}px;
+    font-weight: 500;
+    color: {{ block.settings.subheadline_color }};
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .ai-how-it-works-steps-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: {{ block.settings.step_gap }}px;
+    margin-bottom: {{ block.settings.footer_spacing }}px;
+  }
+
+  .ai-how-it-works-step-{{ ai_gen_id }} {
+    background-color: {{ block.settings.step_background_color }};
+    border-radius: {{ block.settings.step_border_radius }}px;
+    padding: {{ block.settings.step_padding }}px;
+    text-align: center;
+    transition: transform 0.2s ease;
+  }
+
+  .ai-how-it-works-step-{{ ai_gen_id }}:hover {
+    transform: translateY(-4px);
+  }
+
+  .ai-how-it-works-icon-wrapper-{{ ai_gen_id }} {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    margin: 0 auto {{ block.settings.icon_spacing }}px;
+    background-color: {{ block.settings.icon_background_color }};
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-how-it-works-icon-{{ ai_gen_id }} {
+    width: calc({{ block.settings.icon_size }}px * 0.5);
+    height: calc({{ block.settings.icon_size }}px * 0.5);
+    stroke: {{ block.settings.icon_color }};
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .ai-how-it-works-step-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.step_title_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.step_title_color }};
+    margin: 0 0 {{ block.settings.step_title_spacing }}px;
+    line-height: 1.3;
+  }
+
+  .ai-how-it-works-step-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.step_description_size }}px;
+    color: {{ block.settings.step_description_color }};
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .ai-how-it-works-footer-{{ ai_gen_id }} {
+    text-align: center;
+    padding-top: {{ block.settings.footer_spacing }}px;
+    border-top: 1px solid {{ block.settings.divider_color }};
+  }
+
+  .ai-how-it-works-footer-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.footer_text_size }}px;
+    color: {{ block.settings.footer_text_color }};
+    margin: 0 0 {{ block.settings.footer_link_spacing }}px;
+    line-height: 1.6;
+    font-weight: 500;
+  }
+
+  .ai-how-it-works-footer-link-{{ ai_gen_id }} {
+    display: inline-block;
+    font-size: {{ block.settings.footer_link_size }}px;
+    color: {{ block.settings.footer_link_color }};
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+  }
+
+  .ai-how-it-works-footer-link-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.footer_link_hover_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-how-it-works-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding_top | times: 0.6 }}px 16px {{ block.settings.section_padding_bottom | times: 0.6 }}px;
+    }
+
+    .ai-how-it-works-headline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.headline_size | times: 0.7 }}px;
+    }
+
+    .ai-how-it-works-subheadline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subheadline_size | times: 0.85 }}px;
+    }
+
+    .ai-how-it-works-steps-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: {{ block.settings.step_gap | times: 0.75 }}px;
+    }
+
+    .ai-how-it-works-icon-wrapper-{{ ai_gen_id }} {
+      width: {{ block.settings.icon_size | times: 0.85 }}px;
+      height: {{ block.settings.icon_size | times: 0.85 }}px;
+    }
+
+    .ai-how-it-works-icon-{{ ai_gen_id }} {
+      width: calc({{ block.settings.icon_size | times: 0.85 }}px * 0.5);
+      height: calc({{ block.settings.icon_size | times: 0.85 }}px * 0.5);
+    }
+  }
+{% endstyle %}
+
+<div class="ai-how-it-works-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-how-it-works-container-{{ ai_gen_id }}">
+    <div class="ai-how-it-works-header-{{ ai_gen_id }}">
+      {% if block.settings.headline != blank %}
+        <h2 class="ai-how-it-works-headline-{{ ai_gen_id }}">{{ block.settings.headline }}</h2>
+      {% endif %}
+      {% if block.settings.subheadline != blank %}
+        <p class="ai-how-it-works-subheadline-{{ ai_gen_id }}">{{ block.settings.subheadline }}</p>
+      {% endif %}
+    </div>
+
+    <div class="ai-how-it-works-steps-{{ ai_gen_id }}">
+      <div class="ai-how-it-works-step-{{ ai_gen_id }}">
+        <div class="ai-how-it-works-icon-wrapper-{{ ai_gen_id }}">
+          <svg class="ai-how-it-works-icon-{{ ai_gen_id }}" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"></circle>
+            <circle cx="12" cy="12" r="6"></circle>
+            <circle cx="12" cy="12" r="2"></circle>
+            <line x1="12" y1="2" x2="12" y2="6"></line>
+            <line x1="12" y1="18" x2="12" y2="22"></line>
+            <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
+            <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
+            <line x1="2" y1="12" x2="6" y2="12"></line>
+            <line x1="18" y1="12" x2="22" y2="12"></line>
+            <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
+            <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
+          </svg>
+        </div>
+        <h3 class="ai-how-it-works-step-title-{{ ai_gen_id }}">{{ block.settings.step_1_title }}</h3>
+        <p class="ai-how-it-works-step-description-{{ ai_gen_id }}">{{ block.settings.step_1_description }}</p>
+      </div>
+
+      <div class="ai-how-it-works-step-{{ ai_gen_id }}">
+        <div class="ai-how-it-works-icon-wrapper-{{ ai_gen_id }}">
+          <svg class="ai-how-it-works-icon-{{ ai_gen_id }}" viewBox="0 0 24 24">
+            <path d="M12 2v20"></path>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            <circle cx="12" cy="12" r="1"></circle>
+            <circle cx="12" cy="8" r="1"></circle>
+            <circle cx="12" cy="16" r="1"></circle>
+          </svg>
+        </div>
+        <h3 class="ai-how-it-works-step-title-{{ ai_gen_id }}">{{ block.settings.step_2_title }}</h3>
+        <p class="ai-how-it-works-step-description-{{ ai_gen_id }}">{{ block.settings.step_2_description }}</p>
+      </div>
+
+      <div class="ai-how-it-works-step-{{ ai_gen_id }}">
+        <div class="ai-how-it-works-icon-wrapper-{{ ai_gen_id }}">
+          <svg class="ai-how-it-works-icon-{{ ai_gen_id }}" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </div>
+        <h3 class="ai-how-it-works-step-title-{{ ai_gen_id }}">{{ block.settings.step_3_title }}</h3>
+        <p class="ai-how-it-works-step-description-{{ ai_gen_id }}">{{ block.settings.step_3_description }}</p>
+      </div>
+    </div>
+
+    <div class="ai-how-it-works-footer-{{ ai_gen_id }}">
+      {% if block.settings.footer_text != blank %}
+        <p class="ai-how-it-works-footer-text-{{ ai_gen_id }}">{{ block.settings.footer_text }}</p>
+      {% endif %}
+      {% if block.settings.show_footer_link and block.settings.footer_link_text != blank %}
+        <a href="{{ block.settings.footer_link_url }}" class="ai-how-it-works-footer-link-{{ ai_gen_id }}">
+          {{ block.settings.footer_link_text }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "How it works",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section header"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "How Nuvé Stamp Reactivates Your Hair"
+    },
+    {
+      "type": "text",
+      "id": "subheadline",
+      "label": "Subheadline",
+      "default": "3 Proven Technologies. 1 Simple Routine."
+    },
+    {
+      "type": "range",
+      "id": "headline_size",
+      "label": "Headline size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "subheadline_size",
+      "label": "Subheadline size",
+      "min": 14,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "headline_spacing",
+      "label": "Headline spacing",
+      "min": 8,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "label": "Header bottom spacing",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Step 1"
+    },
+    {
+      "type": "text",
+      "id": "step_1_title",
+      "label": "Title",
+      "default": "Microneedling"
+    },
+    {
+      "type": "textarea",
+      "id": "step_1_description",
+      "label": "Description",
+      "default": "Tiny precision needles create micro-channels in the scalp, triggering your body's natural growth response and maximizing serum absorption."
+    },
+    {
+      "type": "header",
+      "content": "Step 2"
+    },
+    {
+      "type": "text",
+      "id": "step_2_title",
+      "label": "Title",
+      "default": "Vibration Therapy"
+    },
+    {
+      "type": "textarea",
+      "id": "step_2_description",
+      "label": "Description",
+      "default": "Soothes the scalp, enhances comfort, and helps drive growth factors deeper—no pain, no fuss."
+    },
+    {
+      "type": "header",
+      "content": "Step 3"
+    },
+    {
+      "type": "text",
+      "id": "step_3_title",
+      "label": "Title",
+      "default": "Red Light Therapy"
+    },
+    {
+      "type": "textarea",
+      "id": "step_3_description",
+      "label": "Description",
+      "default": "Stimulates hair follicles at a cellular level, boosting growth and supporting thick, healthy regrowth—clinically proven wavelengths included."
+    },
+    {
+      "type": "header",
+      "content": "Footer"
+    },
+    {
+      "type": "textarea",
+      "id": "footer_text",
+      "label": "Footer text",
+      "default": "Use Nuvé Stamp just once per week and start noticing stronger, fuller hair in as little as 3 weeks."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_footer_link",
+      "label": "Show footer link",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "footer_link_text",
+      "label": "Link text",
+      "default": "Learn more about our science"
+    },
+    {
+      "type": "url",
+      "id": "footer_link_url",
+      "label": "Link URL"
+    },
+    {
+      "type": "range",
+      "id": "footer_spacing",
+      "label": "Footer top spacing",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Step style"
+    },
+    {
+      "type": "range",
+      "id": "step_gap",
+      "label": "Gap between steps",
+      "min": 16,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "step_padding",
+      "label": "Step padding",
+      "min": 20,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "step_border_radius",
+      "label": "Step border radius",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 60,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "icon_spacing",
+      "label": "Icon bottom spacing",
+      "min": 12,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "step_title_size",
+      "label": "Title size",
+      "min": 16,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "step_title_spacing",
+      "label": "Title bottom spacing",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "step_description_size",
+      "label": "Description size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "footer_text_size",
+      "label": "Footer text size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 17
+    },
+    {
+      "type": "range",
+      "id": "footer_link_size",
+      "label": "Footer link size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "footer_link_spacing",
+      "label": "Link top spacing",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f3f3f4"
+    },
+    {
+      "type": "color",
+      "id": "headline_color",
+      "label": "Headline",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "color",
+      "id": "subheadline_color",
+      "label": "Subheadline",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "color",
+      "id": "step_background_color",
+      "label": "Step background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "icon_background_color",
+      "label": "Icon background",
+      "default": "#d6c8f5"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon",
+      "default": "#6b4fc4"
+    },
+    {
+      "type": "color",
+      "id": "step_title_color",
+      "label": "Step title",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "color",
+      "id": "step_description_color",
+      "label": "Step description",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "color",
+      "id": "footer_text_color",
+      "label": "Footer text",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "color",
+      "id": "footer_link_color",
+      "label": "Footer link",
+      "default": "#6b4fc4"
+    },
+    {
+      "type": "color",
+      "id": "footer_link_hover_color",
+      "label": "Footer link hover",
+      "default": "#d6c8f5"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider",
+      "default": "#e6e6e6"
+    }
+  ],
+  "presets": [
+    {
+      "name": "How it works"
+    }
+  ]
+}
+{% endschema %}

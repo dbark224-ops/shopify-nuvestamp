@@ -1,0 +1,787 @@
+{% doc %}
+  @prompt
+    Create a high-converting hero section for a hair regrowth product landing page (Nuvé Stamp).
+    
+    Headline: “Regrow Thicker, Healthier Hair—From Home”
+    Subheadline: “Nuvé Stamp combines microneedling, vibration, and red light therapy to reactivate dormant hair follicles—backed by science, designed for real results.”
+    Product photo: Large, premium image of the Nuvé Stamp device (angled, clean background, brand accent glow if possible).
+    Price: Clear, bold. Show any discount or “launch offer” if available.
+    Star ratings: Display 4.9/5 (or real average) with “Over 5,000 happy customers” subtext.
+    Button: “Buy Nuvé Stamp Now” (big, contrast, sticky/mobile-friendly)
+    Supporting trust line (optional): “30-Day See New Growth Guarantee” or payment icons/trust badges below button.
+    
+    Design notes:
+    
+    • Centered on mobile, side-by-side on desktop
+    • Minimal, modern, on-brand (use brand colors)
+    • All essential info above the fold on mobile
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-hero-nuve-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.padding_mobile }}px 20px;
+  }
+
+  .ai-hero-nuve-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .ai-hero-nuve-content-{{ ai_gen_id }} {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    text-align: center;
+  }
+
+  .ai-hero-nuve-headline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.headline_size_mobile }}px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: {{ block.settings.headline_color }};
+    margin: 0;
+  }
+
+  .ai-hero-nuve-subheadline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subheadline_size_mobile }}px;
+    line-height: 1.5;
+    color: {{ block.settings.subheadline_color }};
+    margin: 0;
+  }
+
+  .ai-hero-nuve-rating-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .ai-hero-nuve-stars-{{ ai_gen_id }} {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .ai-hero-nuve-star-{{ ai_gen_id }} {
+    width: 20px;
+    height: 20px;
+    color: {{ block.settings.star_color }};
+  }
+
+  .ai-hero-nuve-rating-text-{{ ai_gen_id }} {
+    font-size: 14px;
+    color: {{ block.settings.rating_text_color }};
+    font-weight: 600;
+  }
+
+  .ai-hero-nuve-rating-subtext-{{ ai_gen_id }} {
+    font-size: 13px;
+    color: {{ block.settings.subheadline_color }};
+  }
+
+  .ai-hero-nuve-price-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .ai-hero-nuve-price-wrapper-{{ ai_gen_id }} {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+  }
+
+  .ai-hero-nuve-current-price-{{ ai_gen_id }} {
+    font-size: {{ block.settings.price_size_mobile }}px;
+    font-weight: 700;
+    color: {{ block.settings.price_color }};
+  }
+
+  .ai-hero-nuve-original-price-{{ ai_gen_id }} {
+    font-size: {{ block.settings.price_size_mobile | times: 0.7 }}px;
+    color: {{ block.settings.subheadline_color }};
+    text-decoration: line-through;
+    opacity: 0.7;
+  }
+
+  .ai-hero-nuve-discount-badge-{{ ai_gen_id }} {
+    display: inline-block;
+    background-color: {{ block.settings.discount_badge_bg }};
+    color: {{ block.settings.discount_badge_text }};
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .ai-hero-nuve-cta-{{ ai_gen_id }} {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 18px 40px;
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    border: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-size: {{ block.settings.button_size_mobile }}px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .ai-hero-nuve-cta-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg }};
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .ai-hero-nuve-trust-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .ai-hero-nuve-guarantee-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: {{ block.settings.guarantee_color }};
+    font-weight: 600;
+  }
+
+  .ai-hero-nuve-guarantee-icon-{{ ai_gen_id }} {
+    width: 20px;
+    height: 20px;
+    color: {{ block.settings.guarantee_icon_color }};
+  }
+
+  .ai-hero-nuve-badges-{{ ai_gen_id }} {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .ai-hero-nuve-badge-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: {{ block.settings.subheadline_color }};
+  }
+
+  .ai-hero-nuve-badge-icon-{{ ai_gen_id }} {
+    width: 18px;
+    height: 18px;
+    color: {{ block.settings.badge_icon_color }};
+  }
+
+  .ai-hero-nuve-image-{{ ai_gen_id }} {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .ai-hero-nuve-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .ai-hero-nuve-image-wrapper-{{ ai_gen_id }} img {
+    width: 100%;
+    height: auto;
+    border-radius: {{ block.settings.image_border_radius }}px;
+  }
+
+  .ai-hero-nuve-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: #f4f4f4;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-hero-nuve-image-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-hero-nuve-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-hero-nuve-{{ ai_gen_id }} {
+      padding: {{ block.settings.padding_desktop }}px 40px;
+    }
+
+    .ai-hero-nuve-container-{{ ai_gen_id }} {
+      flex-direction: row;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .ai-hero-nuve-content-{{ ai_gen_id }} {
+      text-align: left;
+      max-width: 600px;
+    }
+
+    .ai-hero-nuve-headline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.headline_size_desktop }}px;
+    }
+
+    .ai-hero-nuve-subheadline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subheadline_size_desktop }}px;
+    }
+
+    .ai-hero-nuve-rating-{{ ai_gen_id }} {
+      align-items: flex-start;
+    }
+
+    .ai-hero-nuve-price-{{ ai_gen_id }} {
+      align-items: flex-start;
+    }
+
+    .ai-hero-nuve-current-price-{{ ai_gen_id }} {
+      font-size: {{ block.settings.price_size_desktop }}px;
+    }
+
+    .ai-hero-nuve-original-price-{{ ai_gen_id }} {
+      font-size: {{ block.settings.price_size_desktop | times: 0.7 }}px;
+    }
+
+    .ai-hero-nuve-cta-{{ ai_gen_id }} {
+      font-size: {{ block.settings.button_size_desktop }}px;
+      width: auto;
+      min-width: 300px;
+    }
+
+    .ai-hero-nuve-trust-{{ ai_gen_id }} {
+      align-items: flex-start;
+    }
+
+    .ai-hero-nuve-badges-{{ ai_gen_id }} {
+      justify-content: flex-start;
+    }
+  }
+{% endstyle %}
+
+<nuve-hero-{{ ai_gen_id }} class="ai-hero-nuve-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-hero-nuve-container-{{ ai_gen_id }}">
+    <div class="ai-hero-nuve-content-{{ ai_gen_id }}">
+      {% if block.settings.headline != blank %}
+        <h1 class="ai-hero-nuve-headline-{{ ai_gen_id }}">{{ block.settings.headline }}</h1>
+      {% endif %}
+
+      {% if block.settings.subheadline != blank %}
+        <p class="ai-hero-nuve-subheadline-{{ ai_gen_id }}">{{ block.settings.subheadline }}</p>
+      {% endif %}
+
+      {% if block.settings.show_rating %}
+        <div class="ai-hero-nuve-rating-{{ ai_gen_id }}">
+          <div class="ai-hero-nuve-stars-{{ ai_gen_id }}">
+            {% for i in (1..5) %}
+              {% if i <= block.settings.rating_value %}
+                <svg class="ai-hero-nuve-star-{{ ai_gen_id }}" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                </svg>
+              {% else %}
+                <svg class="ai-hero-nuve-star-{{ ai_gen_id }}" fill="currentColor" viewBox="0 0 20 20" style="opacity: 0.3;">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                </svg>
+              {% endif %}
+            {% endfor %}
+            <span class="ai-hero-nuve-rating-text-{{ ai_gen_id }}">{{ block.settings.rating_value }}/5</span>
+          </div>
+          {% if block.settings.rating_subtext != blank %}
+            <span class="ai-hero-nuve-rating-subtext-{{ ai_gen_id }}">{{ block.settings.rating_subtext }}</span>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if block.settings.show_price %}
+        <div class="ai-hero-nuve-price-{{ ai_gen_id }}">
+          <div class="ai-hero-nuve-price-wrapper-{{ ai_gen_id }}">
+            {% if block.settings.current_price != blank %}
+              <span class="ai-hero-nuve-current-price-{{ ai_gen_id }}">{{ block.settings.current_price }}</span>
+            {% endif %}
+            {% if block.settings.original_price != blank %}
+              <span class="ai-hero-nuve-original-price-{{ ai_gen_id }}">{{ block.settings.original_price }}</span>
+            {% endif %}
+          </div>
+          {% if block.settings.discount_text != blank %}
+            <span class="ai-hero-nuve-discount-badge-{{ ai_gen_id }}">{{ block.settings.discount_text }}</span>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if block.settings.button_text != blank %}
+        <a href="{{ block.settings.button_link }}" class="ai-hero-nuve-cta-{{ ai_gen_id }}">
+          {{ block.settings.button_text }}
+        </a>
+      {% endif %}
+
+      <div class="ai-hero-nuve-trust-{{ ai_gen_id }}">
+        {% if block.settings.guarantee_text != blank %}
+          <div class="ai-hero-nuve-guarantee-{{ ai_gen_id }}">
+            <svg class="ai-hero-nuve-guarantee-icon-{{ ai_gen_id }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+            <span>{{ block.settings.guarantee_text }}</span>
+          </div>
+        {% endif %}
+
+        {% if block.settings.show_trust_badges %}
+          <div class="ai-hero-nuve-badges-{{ ai_gen_id }}">
+            <div class="ai-hero-nuve-badge-{{ ai_gen_id }}">
+              <svg class="ai-hero-nuve-badge-icon-{{ ai_gen_id }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+              </svg>
+              <span>Secure Checkout</span>
+            </div>
+            <div class="ai-hero-nuve-badge-{{ ai_gen_id }}">
+              <svg class="ai-hero-nuve-badge-icon-{{ ai_gen_id }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/>
+              </svg>
+              <span>Free Shipping</span>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="ai-hero-nuve-image-{{ ai_gen_id }}">
+      <div class="ai-hero-nuve-image-wrapper-{{ ai_gen_id }}">
+        {% if block.settings.product_image %}
+          <img
+            src="{{ block.settings.product_image | image_url: width: 1000 }}"
+            alt="{{ block.settings.product_image.alt | escape }}"
+            loading="eager"
+            width="{{ block.settings.product_image.width }}"
+            height="{{ block.settings.product_image.height }}"
+          >
+        {% else %}
+          <div class="ai-hero-nuve-image-placeholder-{{ ai_gen_id }}">
+            {{ 'product-1' | placeholder_svg_tag }}
+            <div class="ai-hero-nuve-empty-state-{{ ai_gen_id }}">
+              Add your Nuvé Stamp product image
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</nuve-hero-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class NuveHero{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.setupStickyButton();
+      }
+
+      setupStickyButton() {
+        const button = this.querySelector('.ai-hero-nuve-cta-{{ ai_gen_id }}');
+        if (!button) return;
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (window.innerWidth < 750) {
+                if (!entry.isIntersecting) {
+                  button.style.position = 'fixed';
+                  button.style.bottom = '20px';
+                  button.style.left = '20px';
+                  button.style.right = '20px';
+                  button.style.zIndex = '1000';
+                  button.style.maxWidth = 'none';
+                  button.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.2)';
+                } else {
+                  button.style.position = 'static';
+                  button.style.boxShadow = 'none';
+                }
+              }
+            });
+          },
+          { threshold: 0 }
+        );
+
+        observer.observe(button);
+      }
+    }
+
+    customElements.define('nuve-hero-{{ ai_gen_id }}', NuveHero{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Nuvé Stamp hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Regrow Thicker, Healthier Hair—From Home"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheadline",
+      "label": "Subheadline",
+      "default": "Nuvé Stamp combines microneedling, vibration, and red light therapy to reactivate dormant hair follicles—backed by science, designed for real results."
+    },
+    {
+      "type": "header",
+      "content": "Product image"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Image"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Rating"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show rating",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "rating_value",
+      "label": "Rating value",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "rating_subtext",
+      "label": "Rating subtext",
+      "default": "Over 5,000 happy customers"
+    },
+    {
+      "type": "header",
+      "content": "Price"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "label": "Show price",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "current_price",
+      "label": "Current price",
+      "default": "$149"
+    },
+    {
+      "type": "text",
+      "id": "original_price",
+      "label": "Original price"
+    },
+    {
+      "type": "text",
+      "id": "discount_text",
+      "label": "Discount text",
+      "default": "Launch Offer"
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Buy Nuvé Stamp Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Trust elements"
+    },
+    {
+      "type": "text",
+      "id": "guarantee_text",
+      "label": "Guarantee text",
+      "default": "30-Day See New Growth Guarantee"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_badges",
+      "label": "Show trust badges",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile",
+      "label": "Mobile padding",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_desktop",
+      "label": "Desktop padding",
+      "min": 40,
+      "max": 120,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "headline_size_mobile",
+      "label": "Headline size (mobile)",
+      "min": 24,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "headline_size_desktop",
+      "label": "Headline size (desktop)",
+      "min": 32,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "subheadline_size_mobile",
+      "label": "Subheadline size (mobile)",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "subheadline_size_desktop",
+      "label": "Subheadline size (desktop)",
+      "min": 16,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "price_size_mobile",
+      "label": "Price size (mobile)",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "price_size_desktop",
+      "label": "Price size (desktop)",
+      "min": 32,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "button_size_mobile",
+      "label": "Button size (mobile)",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_size_desktop",
+      "label": "Button size (desktop)",
+      "min": 16,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f3f3f4"
+    },
+    {
+      "type": "color",
+      "id": "headline_color",
+      "label": "Headline",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "color",
+      "id": "subheadline_color",
+      "label": "Subheadline",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Price",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star",
+      "default": "#FFB800"
+    },
+    {
+      "type": "color",
+      "id": "rating_text_color",
+      "label": "Rating text",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "color",
+      "id": "discount_badge_bg",
+      "label": "Discount badge background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "discount_badge_text",
+      "label": "Discount badge text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg",
+      "label": "Button hover background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "guarantee_color",
+      "label": "Guarantee text",
+      "default": "#0b0b0d"
+    },
+    {
+      "type": "color",
+      "id": "guarantee_icon_color",
+      "label": "Guarantee icon",
+      "default": "#4CAF50"
+    },
+    {
+      "type": "color",
+      "id": "badge_icon_color",
+      "label": "Badge icon",
+      "default": "#0b0b0d"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Nuvé Stamp hero"
+    }
+  ]
+}
+{% endschema %}
