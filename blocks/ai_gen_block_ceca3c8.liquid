@@ -1,15 +1,15 @@
 {% doc %}
   @prompt
-    Create a visually appealing benefits grid for a premium hair regrowth brand, Nuvé Stamp.
+    Create a visually appealing benefits grid for a premium hair routine brand, Nuvé Stamp.
     
     Headline: “Why Choose Nuvé Stamp?”
     
     Benefits (with bold, simple icons):
     
-    1. Stimulates dormant hair follicles for fuller, thicker hair
+    1. Stimulates scalp activity for fuller, thicker hair
     2. Combines microneedling, vibration, and red light therapy
     3. Pain-free, easy-to-use, and safe for home use
-    4. Noticeable results in just 3–6 weeks for most users
+    4. Noticeable results in just 8–12 weeks for most users
     5. No drugs, chemicals, or invasive treatments
     6. Trusted by thousands of men and women worldwide
     Design:
@@ -17,7 +17,7 @@
     • 2–3 column layout on desktop, stacked on mobile
     • Each benefit has a matching icon or simple illustration (e.g., follicle, checkmark, home, clock, shield, heart)
     • Brand-aligned colors: near-black, soft lilac accents, clean off-white background
-    • Optional: Add a “30-day See New Growth Guarantee” badge beneath the grid for extra trust
+    • Optional: Add a “30-Day Money-Back Guarantee” badge beneath the grid for extra trust
     CTA (optional): “See Real Results” or “How It Works”
 {% enddoc %}
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
@@ -374,7 +374,7 @@
       "type": "textarea",
       "id": "benefit_1_text",
       "label": "Text",
-      "default": "Stimulates dormant hair follicles for fuller, thicker hair"
+      "default": "Stimulates scalp activity for fuller, thicker hair"
     },
     {
       "type": "header",
@@ -422,7 +422,7 @@
       "type": "textarea",
       "id": "benefit_4_text",
       "label": "Text",
-      "default": "Noticeable results in just 3–6 weeks for most users"
+      "default": "Noticeable results in just 8–12 weeks for most users"
     },
     {
       "type": "header",
@@ -566,7 +566,7 @@
       "type": "text",
       "id": "badge_text",
       "label": "Badge text",
-      "default": "30-Day See New Growth Guarantee"
+      "default": "30-Day Money-Back Guarantee"
     },
     {
       "type": "select",
