@@ -133,5 +133,69 @@
     {% if settings.quick_add or settings.mobile_quick_add %}
       {% render 'quick-add-modal' %}
     {% endif %}
+
+    <style>
+      /* CRO patch: improve mobile tap clarity for paid traffic */
+      @media (max-width: 749px) {
+        .nuve-mh-btn,
+        .nuve-mq-btn,
+        button[name="add"],
+        .product-form__submit {
+          min-height: 48px;
+        }
+
+        /* Make non-clickable badges/text less likely to be mistaken for CTAs */
+        .nuve-mh-sub,
+        .nuve-mh-save,
+        .nuve-rating-subtext,
+        .nuve-launch-offer-badge {
+          cursor: default;
+        }
+      }
+    </style>
+
+    <script>
+      // CRO patch: route #buy buttons to the real product buy form on PDP.
+      // This reduces dead-click / quick-back behavior when hero CTA is tapped.
+      (function () {
+        function getRealBuyTarget() {
+          return (
+            document.querySelector('main[data-template*="product"] button[name="add"]') ||
+            document.querySelector('main[data-template*="product"] .product-form__submit') ||
+            document.querySelector('main[data-template*="product"] form[action*="/cart/add"]')
+          );
+        }
+
+        function wireBuyAnchors() {
+          var anchors = document.querySelectorAll('a[href="#buy"]');
+          if (!anchors.length) return;
+
+          anchors.forEach(function (a) {
+            if (a.dataset.nuveBuyWired === '1') return;
+            a.dataset.nuveBuyWired = '1';
+
+            a.addEventListener('click', function (e) {
+              var target = getRealBuyTarget();
+              if (!target) return;
+
+              e.preventDefault();
+              target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+              setTimeout(function () {
+                try { target.focus({ preventScroll: true }); } catch (_) {}
+              }, 320);
+            });
+          });
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', wireBuyAnchors);
+        } else {
+          wireBuyAnchors();
+        }
+
+        document.addEventListener('shopify:section:load', wireBuyAnchors);
+      })();
+    </script>
   </body>
 </html>
